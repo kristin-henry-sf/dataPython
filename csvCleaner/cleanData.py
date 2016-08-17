@@ -68,11 +68,9 @@ def cleanFile(file_name, dest_folder):
 	print file_name
 
 	file_path = file_name
-
 	file_name = os.path.basename(file_name)
-	# # print file_name
 	file_name_short = os.path.splitext(file_name)[0]
-	print file_name_short
+	#print file_name_short
 
 
 	file = open(file_path, 'r')
@@ -87,8 +85,6 @@ def cleanFile(file_name, dest_folder):
 	for row in reader: 
 		pattern = getTypesPattern(row)
 
-		# print pattern
-		# print 'is row empty:', isRowEmpty(pattern)
 		if isRowEmpty(pattern) == False:
 			row = nibble(row)
 			pattern = getTypesPattern(row)  # Do this more efficiently, instead of calling again.
@@ -99,45 +95,32 @@ def cleanFile(file_name, dest_folder):
 		
 	counts = Counter(row_lengths)
 	common_row_length = counts.most_common(1)[0][0]
-	print counts
-	print common_row_length
-
 
 	patternCounts = Counter(row_type_patterns)
 	common_row_patterns = patternCounts.most_common()
 
 
-	print common_row_patterns
+	# # Save extra header and footer rows to a seperate file
+	# extraRows = []
+	# # file.seek(0) # go back to top of file
+	# #for row in reader:
+	# for row in rows:
+	# 	if len(row) != common_row_length:
+	# 		# print row
+	# 		extraRows.append(row)
 
-	# # for pattern in common_row_patterns:
-	# # 	print len(pattern[0])
-	# # 	print pattern
+	# # with open('extra_rows.csv', 'wb') as f:
+	# # 	writer = csv.writer(f)
+	# # 	writer.writerows(extraRows)
 
-
-	# Save extra header and footer rows to a seperate file
-	extraRows = []
-	# file.seek(0) # go back to top of file
-	#for row in reader:
-	for row in rows:
-		if len(row) != common_row_length:
-			# print row
-			extraRows.append(row)
-
-	# with open('extra_rows.csv', 'wb') as f:
-	# 	writer = csv.writer(f)
-	# 	writer.writerows(extraRows)
-
-	# f.close()
+	# # f.close()
 
 
 
 	# Save header and data rows to a seperate file
 	keepRows = []
-	# file.seek(0) # go back to top of file
-	# for row in reader:
 	for row in rows:
 		if len(row) == common_row_length:
-			# print row
 			keepRows.append(row)
 
 
@@ -150,7 +133,6 @@ def cleanFile(file_name, dest_folder):
 	headers = []
 	for row in keepRows[:3]:
 		if 'int' not in getTypesPattern(row):
-			# print 'this is a header!!!!!!!!!!!!!!'
 			headers.append(row)
 		print row
 
@@ -195,56 +177,39 @@ def cleanFile(file_name, dest_folder):
 	#  remove empty columns
 	#  To Do: do this more efficiently!!
 
-	# print '--------------------------------------------'
 	header = keepRows[0]
-
-	# print header
 
 	# find any empty header cells
 	emptyHeaderCells = []
 	i = 0
 	for cell in header:
-		# print cell
 		if(getType(cell) == 'empty'):
 			emptyHeaderCells.append(i)
 		i += 1
-
-	# print emptyHeaderCells
-
 
 
 	# check if data cells in column is also empty
 	columns_to_remove = []
 	for col in emptyHeaderCells:
-		# print col
-
+		
 		remove_col = True
 		for row in keepRows:
-			# print 'col: ', row[col], ' type: ', getType(row[col])
 			if getType(row[col]) != 'empty':
 				remove_col = False
 		if remove_col == True:
-			# print 'remove this column', col
 			columns_to_remove.append(col)
 
 
-	print 'columns to remove: ', columns_to_remove
-
-
-	# # Now go through an remove columns from header and data
+	# # Now go through and remove columns from header and data
 	cleanRows = []
 
 
 	for row in keepRows:
-		
-		# print len(row)
-
 		tempRow = []
 		i=0
 		for elem in row:
 			if i not in columns_to_remove:
 				tempRow.append(elem)
-			# print elem
 			i+=1
 
 		cleanRows.append(tempRow)
