@@ -70,7 +70,7 @@ def cleanFile(file_name, dest_folder):
 	file_path = file_name
 	file_name = os.path.basename(file_name)
 	file_name_short = os.path.splitext(file_name)[0]
-	#print file_name_short
+	print file_name_short
 
 
 	file = open(file_path, 'r')
