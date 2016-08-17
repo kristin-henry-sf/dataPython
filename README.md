@@ -19,12 +19,6 @@ dummyData1.csv
 * has extra numbers in cells below two collumns. need to be removed 
 
 
-## ToDo (yeah, this should probably be in git issues):
-* remove extra numbers is cells below two collumns. This isn't working for dummyData1.csv
-* make csv with summary table below main data rows, and make sure it's removed
-* use xlrd to read excel files, and convert them to csv 
-* longterm: make UI for guiding cleaning of particularly troublesome spreadsheets
-
 ## Resources:
 **python-excel.org**
 * packages for working with Excel files: http://www.python-excel.org/
