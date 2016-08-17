@@ -18,9 +18,19 @@ Example csv files to test code with. Code expects them in the 'tmp' folder.
 
 Cleaned/processed files are saved in 'cleaned' folder.
 
-dummyData1.csv
+**dummyData1.csv**
 * has extra cells at top of file, that are not headers or data. need to be removed
 * has extra numbers in cells below two collumns. need to be removed 
+
+## Candidates for test files
+**2010 Federal STEM Education Inventory Data Set on data.gov**
+* has nested headers
+* has commas in cells (text)
+* an xls rather than csv file
+* has column totals, for some columns
+* http://catalog.data.gov/dataset/2010-federal-stem-education-inventory-data-set
+* form used for data collection is also available
+
 
 
 ## Resources:
