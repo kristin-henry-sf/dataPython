@@ -3,7 +3,6 @@ import csv
 from collections import Counter
 
 
-# ToDo: come up with better name for this!
 # This is for dealing with csv's that have forced empty cells in extra rows (non data, non header)
 def nibble(row):
 	nibbled_row = []
@@ -17,7 +16,6 @@ def nibble(row):
 			empties += 1
 		else:
 			break
-
 
 	#  If less than half of cells at end of row are empty, we may have data or header
 	if(empties < len(row)/2):
@@ -36,6 +34,7 @@ def nibble(row):
 
 	return nibbled_row[::-1]
 
+
 # super simple type checking, anything other than int will be str
 def getType(elem):
 	if elem == '':
@@ -48,12 +47,12 @@ def getType(elem):
 	 	return 'str'
 
 
-
 def getTypesPattern(row):
 	rowTypes = []
 	for elem in row:
 		rowTypes.append(getType(elem))
 	return rowTypes
+
 
 def isRowEmpty(pattern):
 	for elem in pattern:
@@ -63,19 +62,13 @@ def isRowEmpty(pattern):
 
 
 
-
 def cleanFile(file_name, dest_folder):
-	print file_name
-
 	file_path = file_name
 	file_name = os.path.basename(file_name)
 	file_name_short = os.path.splitext(file_name)[0]
-	print file_name_short
-
 
 	file = open(file_path, 'r')
 	reader = csv.reader(file)
-
 
 	# # get most common length of rows....this should be our data and useful header
 	# # ToDo: think about more efficient way to do this
@@ -99,7 +92,6 @@ def cleanFile(file_name, dest_folder):
 	patternCounts = Counter(row_type_patterns)
 	common_row_patterns = patternCounts.most_common()
 
-
 	# # Save extra header and footer rows to a seperate file
 	# extraRows = []
 	# # file.seek(0) # go back to top of file
@@ -116,30 +108,22 @@ def cleanFile(file_name, dest_folder):
 	# # f.close()
 
 
-
-	# Save header and data rows to a seperate file
+	# Save header and data rows 
 	keepRows = []
 	for row in rows:
 		if len(row) == common_row_length:
 			keepRows.append(row)
 
-
-	#ToDo: flatten header rows into one row, if they are multi-leveled (nested)
 	# This is not as robust as it can be, keeping it simple for POC
 	# Assumption: first rows are likely to be headers, and when pattern becomes 'common', it's data
 	# Assumption: headers will not have integers as names --> header rows don't have int types in them
-
-	# #  ToDo: do this more efficiently
 	headers = []
 	for row in keepRows[:3]:
 		if 'int' not in getTypesPattern(row):
 			headers.append(row)
-		print row
-
-
+	
 
 	if len(headers) > 1:
-
 		# remove the old headers 
 		keepRows = keepRows[len(headers):]
 
@@ -152,7 +136,6 @@ def cleanFile(file_name, dest_folder):
 
 			types = (getType(headers[0][i]), getType(headers[1][i]))
 
-			#  ToDo: need better concatonation symbol here!!! 
 			if types == ('str', 'str'):
 				pre = headers[0][i]
 				post = " " + headers[1][i]
@@ -165,7 +148,6 @@ def cleanFile(file_name, dest_folder):
 				pre = ''
 				post = ''
 
-			
 			new_header.append(pre + post)
 
 			i += 1
@@ -176,7 +158,6 @@ def cleanFile(file_name, dest_folder):
 	#----------------------------------------------
 	#  remove empty columns
 	#  To Do: do this more efficiently!!
-
 	header = keepRows[0]
 
 	# find any empty header cells
@@ -187,11 +168,9 @@ def cleanFile(file_name, dest_folder):
 			emptyHeaderCells.append(i)
 		i += 1
 
-
-	# check if data cells in column is also empty
+	# check if all the data cells in column are also empty
 	columns_to_remove = []
 	for col in emptyHeaderCells:
-		
 		remove_col = True
 		for row in keepRows:
 			if getType(row[col]) != 'empty':
@@ -202,8 +181,6 @@ def cleanFile(file_name, dest_folder):
 
 	# # Now go through and remove columns from header and data
 	cleanRows = []
-
-
 	for row in keepRows:
 		tempRow = []
 		i=0
