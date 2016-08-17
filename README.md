@@ -14,8 +14,9 @@ Note: this is very rough, first iteration
 
 
 ## Test files
-Example csv files to test code with. In 'tmp' folder
-Cleand files are saved in 'cleaned' folder
+Example csv files to test code with. Code expects them in the 'tmp' folder.
+
+Cleaned/processed files are saved in 'cleaned' folder.
 
 dummyData1.csv
 * has extra cells at top of file, that are not headers or data. need to be removed
