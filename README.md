@@ -1,5 +1,14 @@
 # dataPython
 
+
+## First, Quick and Dirty version
+Python 2.7 (for now)
+
+run from command line with 
+
+```python hello.py```
+
+
 ## Resources:
 **python-excel.org**
 * packages for working with Excel files: http://www.python-excel.org/
