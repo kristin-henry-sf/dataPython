@@ -1,5 +1,8 @@
 # dataPython
 
+The purpose of this project is to create a tool for cleaning up messy spreadsheets into well-formed csvfiles ready for analysis and saving to a database. Written in Python.
+
+Currently, it's a commandline tool.
 
 ## First, Quick and Dirty version
 Python 2.7 (for now)
