@@ -9,8 +9,8 @@ CLEANED_FOLDER = './cleaned/'
 RESULTS_FOLDER = './queryResults/'
 ALLOWED_EXTENSIONS = set(['csv'])
 
-# filename = './tmp/dummyData1.csv'
-filename = './tmp/2010 Federal STEM Education Inventory Data Set.xls'
+filename = './tmp/dummyData1.csv'
+# filename = './tmp/2010 Federal STEM Education Inventory Data Set.xls'
 # Question: should I automatically rename file, replacing spaces with underscores?
 
 csv_path = checkFileType(filename, UPLOAD_FOLDER)
@@ -18,4 +18,4 @@ print 'csv_path from main: ', csv_path
 
 
 
-# cleanFile(filename, CLEANED_FOLDER)
+cleanFile(filename, CLEANED_FOLDER)

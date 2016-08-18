@@ -61,15 +61,8 @@ def isRowEmpty(pattern):
 	return True
 
 
-
-def cleanFile(file_name, dest_folder):
-	file_path = file_name
-	file_name = os.path.basename(file_name)
-	file_name_short = os.path.splitext(file_name)[0]
-
-	file = open(file_path, 'r')
-	reader = csv.reader(file)
-
+# ToDo: clean this up, so it returns fewer things!!!! 
+def getPatterns(reader):
 	# # get most common length of rows....this should be our data and useful header
 	# # ToDo: think about more efficient way to do this
 	row_lengths = []
@@ -92,28 +85,21 @@ def cleanFile(file_name, dest_folder):
 	patternCounts = Counter(row_type_patterns)
 	common_row_patterns = patternCounts.most_common()
 
-	# # Save extra header and footer rows to a seperate file
-	# extraRows = []
-	# # file.seek(0) # go back to top of file
-	# #for row in reader:
-	# for row in rows:
-	# 	if len(row) != common_row_length:
-	# 		# print row
-	# 		extraRows.append(row)
-
-	# # with open('extra_rows.csv', 'wb') as f:
-	# # 	writer = csv.writer(f)
-	# # 	writer.writerows(extraRows)
-
-	# # f.close()
+	return rows, common_row_length, patternCounts, common_row_patterns
 
 
+
+def getKeepRows(rows, common_row_length):
 	# Save header and data rows 
 	keepRows = []
 	for row in rows:
 		if len(row) == common_row_length:
 			keepRows.append(row)
 
+	return keepRows
+
+
+def flattenHeaders(keepRows):
 	# This is not as robust as it can be, keeping it simple for POC
 	# Assumption: first rows are likely to be headers, and when pattern becomes 'common', it's data
 	# Assumption: headers will not have integers as names --> header rows don't have int types in them
@@ -149,12 +135,14 @@ def cleanFile(file_name, dest_folder):
 				post = ''
 
 			new_header.append(pre + post)
-
 			i += 1
 
 		keepRows.insert(0,new_header)
 
+	return keepRows
 
+
+def removeEmptyColumns(keepRows):
 	#----------------------------------------------
 	#  remove empty columns
 	#  To Do: do this more efficiently!!
@@ -191,12 +179,35 @@ def cleanFile(file_name, dest_folder):
 
 		cleanRows.append(tempRow)
 
+	return cleanRows
+
+
+
+# ---------------------------------------------------------------------------------------
+def cleanFile(file_name, dest_folder):
+	file_path = file_name
+	file_name = os.path.basename(file_name)
+	file_name_short = os.path.splitext(file_name)[0]
+
+	file = open(file_path, 'r')
+	reader = csv.reader(file)
+
+
+	rows, common_row_length, patternCounts, common_row_patterns = getPatterns(reader)
+
+	keepRows = getKeepRows(rows, common_row_length)
+	keepRows = flattenHeaders(keepRows)
+
+	cleanRows = removeEmptyColumns(keepRows)	
+
 	#----------------------------------------------
 	# write out cleaned data into new csv file
 	complete_name = os.path.join(dest_folder, file_name_short + '_cleaned.csv')
 	with open( complete_name, 'wb') as f:
 		writer = csv.writer(f)
 		writer.writerows(cleanRows)
+
+	print 'cleaned file: ', complete_name	
 
 	f.close()
 

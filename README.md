@@ -15,6 +15,7 @@ Note: this is very rough, first iteration
 
 ## Test files
 Example csv files to test code with. Code expects them in the 'tmp' folder.
+XLS files now converted to csv before starting cleaning process.
 
 Cleaned/processed files are saved in 'cleaned' folder.
 
