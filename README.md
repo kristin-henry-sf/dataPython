@@ -41,3 +41,5 @@ Cleaned/processed files are saved in 'cleaned' folder.
 resolving a merge conflict test
 test post merge from master to branch
 
+
+testing a merge from branch to master
