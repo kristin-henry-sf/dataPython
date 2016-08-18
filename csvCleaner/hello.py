@@ -1,7 +1,7 @@
 import os
 
 from cleanData import cleanFile
-from convertFile import xlsToCsv
+from convertFile import xlsToCsv, checkFileType
 
 # based implementation in Flask app, will abstract this more later
 UPLOAD_FOLDER = './tmp/'
@@ -13,13 +13,9 @@ ALLOWED_EXTENSIONS = set(['csv'])
 filename = './tmp/2010 Federal STEM Education Inventory Data Set.xls'
 # Question: should I automatically rename file, replacing spaces with underscores?
 
+csv_path = checkFileType(filename, UPLOAD_FOLDER)
+print 'csv_path from main: ', csv_path
 
-ext= os.path.splitext(filename)[1]
-print ext
-
-if ext == '.xls':
-	csv_path = xlsToCsv(filename, UPLOAD_FOLDER)
-	print csv_path
 
 
 # cleanFile(filename, CLEANED_FOLDER)
