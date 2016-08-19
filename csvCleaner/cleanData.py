@@ -246,6 +246,7 @@ def cleanFile(file_name, dest_folder):
 	
 	saveAsCSV(cleanRows, dest_folder, file_name_short)
 
+	# this is just for testing
 	for row in rows:
 		print row
 #--------------------------------------------------------------------------------------------
