@@ -67,24 +67,6 @@ def isRowEmpty(pattern):
 def getRows(file_path):
 	rows = []
 
-	# f = open(file_path, 'rb')
-	# data = f.read().splitlines()
-	# f.close()
-	
-	# tmp_csv = 'temp.csv'
-	# f = open(tmp_csv,'wb')
-	# f.write(d.replace('\0', '') for d in data)
-	# f.close()
-
-	# f = open(tmp_csv, 'rb')
-
-	# # deal with any null bytes that may be in the file
-	# if '\0' in f.read():
-	# 	print 'we got null bytes in this input file'	
-	# else:
-	# 	print 'all good'
-
-
 	# print open(file_path).read().index('\0')
 	with open(file_path, 'rb') as f:
 		reader = csv.reader(f)
@@ -93,18 +75,21 @@ def getRows(file_path):
 			rows.append(row)
 		f.close()
 	return rows
+	
 
 
-def checkForUnnamed(rows):
-	row = rows[0]
+def cleanUnnamed(rows):
+	row = rows[0] 	# get the first row, only one that could have 'Unnamed: # ' cells
+	rows = rows[1:] # save the rest of the rows
+	
 	newrow = []
-	rows = rows[1:]
 	for cell in row:
 		if 'Unnamed' in cell:
 			newrow.append('')
 		else:
 			newrow.append(cell)
-	rows.insert(0, newrow)
+	rows.insert(0, newrow) # put our cleaned row back as first row 
+	
 	return rows
 
 
@@ -225,10 +210,10 @@ def removeEmptyColumns(keepRows):
 			if i not in columns_to_remove:
 				tempRow.append(elem)
 			i+=1
-
 		cleanRows.append(tempRow)
 
 	return cleanRows
+
 
 def saveAsCSV(cleanRows, dest_folder, file_name_short):
 	complete_name = os.path.join(dest_folder, file_name_short + '_cleaned.csv')
@@ -250,7 +235,7 @@ def cleanFile(file_name, dest_folder):
 	# not sure if this is good idea....might use up memory
 	rows = getRows(file_path)
 
-	rows = checkForUnnamed(rows)
+	rows = cleanUnnamed(rows)
 	
 	rows, common_row_length, patternCounts, common_row_patterns = getPatterns(rows)
 
@@ -261,9 +246,10 @@ def cleanFile(file_name, dest_folder):
 	
 	saveAsCSV(cleanRows, dest_folder, file_name_short)
 
+	# this is just for testing
 	for row in rows:
 		print row
-
+#--------------------------------------------------------------------------------------------
 
 
 
