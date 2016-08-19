@@ -1,5 +1,6 @@
 import os
 import csv
+import numbers
 # import pandas as pd
 from collections import Counter
 
@@ -36,16 +37,16 @@ def nibble(row):
 	return nibbled_row[::-1]
 
 
-# super simple type checking, anything other than int will be str
+# super simple type checking, anything other than int or float will be str or empty
 def getType(elem):
-	if elem == '':
-		return 'empty'
-
-	try: 
-		int(elem)
-		return 'int'
+	try:
+		float(elem)
+		return 'num'
 	except ValueError:
-	 	return 'str'
+		if elem == '':
+			return 'empty'
+	return 'str'
+
 
 
 def getTypesPattern(row):
@@ -137,7 +138,7 @@ def flattenHeaders(keepRows):
 	# Assumption: headers will not have integers as names --> header rows don't have int types in them
 	headers = []
 	for row in keepRows[:3]:
-		if 'int' not in getTypesPattern(row):
+		if 'num' not in getTypesPattern(row):
 			headers.append(row)
 	
 	# print headers
@@ -216,7 +217,7 @@ def removeEmptyColumns(keepRows):
 
 
 def possibleSumsRow(row):
-	sumsTypes = ['int', 'empty']
+	sumsTypes = ['num', 'empty']
 	for cell in row:
 		if getType(cell) not in sumsTypes:
 			return False
@@ -233,8 +234,8 @@ def removeSumsRow(rows):
 	# print possibleSumsRow(row_z)
 	# print possibleSumsRow(row_y)
 
-	# print row_y, getTypesPattern(row_y)
-	# print row_z, getTypesPattern(row_z)
+	print row_y, getTypesPattern(row_y)
+	print row_z, getTypesPattern(row_z)
 
 
 	# ToDo make this more robust!!! Check previous rows...
