@@ -94,6 +94,13 @@ def cleanUnnamed(rows):
 	return rows
 
 
+def getRowTypePatterns(rows):
+	row_type_patterns = []
+	for row in rows:
+		pattern = getTypesPattern(row)
+		row_type_patterns.append(tuple(pattern))
+	return row_type_patterns
+
 # ToDo: clean this up, so it returns fewer things!!!! 
 def getPatterns(old_rows):
 	# # get most common length of rows....this should be our data and useful header
@@ -133,9 +140,9 @@ def getKeepRows(rows, common_row_length):
 
 
 def flattenHeaders(keepRows):
-	# This is not as robust as it can be, keeping it simple for POC
+	# This is not as robust as it can be, keeping it simple for now
 	# Assumption: first rows are likely to be headers, and when pattern becomes 'common', it's data
-	# Assumption: headers will not have integers as names --> header rows don't have int types in them
+	# Assumption: headers will not have numbers as names --> header rows don't have int types in them
 	headers = []
 	for row in keepRows[:3]:
 		if 'num' not in getTypesPattern(row):
@@ -266,17 +273,21 @@ def cleanFile(file_name, dest_folder):
 	# not sure if this is good idea....might use up memory
 	rows = getRows(file_path)
 
+	#converting an excel sheet to csv may result in empty cells of first row to be filled with 'Unnamed: #'
 	rows = cleanUnnamed(rows)
+
+	rows = removeEmptyColumns(rows)
+
+	row_type_patterns = getRowTypePatterns(rows)
+	print row_type_patterns
 	
 	rows, common_row_length, patternCounts, common_row_patterns = getPatterns(rows)
 
 	keepRows = getKeepRows(rows, common_row_length)
 	keepRows = flattenHeaders(keepRows)
 
-	cleanRows = removeEmptyColumns(keepRows)	
-
 	# any extra tables must be already removed by now
-	cleanRows = removeSumsRow(cleanRows)
+	cleanRows = removeSumsRow(keepRows)
 	
 	saveAsCSV(cleanRows, dest_folder, file_name_short)
 
