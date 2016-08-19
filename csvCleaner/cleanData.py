@@ -215,6 +215,36 @@ def removeEmptyColumns(keepRows):
 	return cleanRows
 
 
+def possibleSumsRow(row):
+	sumsTypes = ['int', 'empty']
+	for cell in row:
+		if getType(cell) not in sumsTypes:
+			return False
+	return True
+
+
+def removeSumsRow(rows):
+	# assumption: have already removed any additional sumary table
+	# assumption: the last row is either data, or contains sums of some columns
+
+	row_y = rows[len(rows)-2]
+	row_z = rows[len(rows)-1]
+
+	# print possibleSumsRow(row_z)
+	# print possibleSumsRow(row_y)
+
+	# print row_y, getTypesPattern(row_y)
+	# print row_z, getTypesPattern(row_z)
+
+
+	# ToDo make this more robust!!! Check previous rows...
+	if possibleSumsRow(row_z):
+		rows = rows[:-1]
+
+
+	return rows
+
+
 def saveAsCSV(cleanRows, dest_folder, file_name_short):
 	complete_name = os.path.join(dest_folder, file_name_short + '_cleaned.csv')
 	with open( complete_name, 'wb') as f:
@@ -243,12 +273,15 @@ def cleanFile(file_name, dest_folder):
 	keepRows = flattenHeaders(keepRows)
 
 	cleanRows = removeEmptyColumns(keepRows)	
+
+	# any extra tables must be already removed by now
+	cleanRows = removeSumsRow(cleanRows)
 	
 	saveAsCSV(cleanRows, dest_folder, file_name_short)
 
-	# this is just for testing
-	for row in rows:
-		print row
+	# # this is just for testing
+	# for row in rows:
+	# 	print row
 #--------------------------------------------------------------------------------------------
 
 
