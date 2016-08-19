@@ -105,7 +105,7 @@ def getPatterns(old_rows):
 		pattern = getTypesPattern(row)
 
 		if isRowEmpty(pattern) == False:
-			row = nibble(row)
+			# row = nibble(row)
 			pattern = getTypesPattern(row)  # Do this more efficiently, instead of calling again.
 
 			row_lengths.append(len(row))
