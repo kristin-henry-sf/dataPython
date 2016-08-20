@@ -99,33 +99,27 @@ def getRowTypePatterns(rows):
 	for row in rows:
 		pattern = getTypesPattern(row)
 		row_type_patterns.append(tuple(pattern))
-	return row_type_patterns
+	return Counter(row_type_patterns).most_common()
+
+
+def getCommonRowLengths(rows):
+	lengths = []
+	for row in rows:
+		lengths.append(len(row))
+
+	return Counter(lengths)
+
+
 
 # ToDo: clean this up, so it returns fewer things!!!! 
-def getPatterns(old_rows):
-	# # get most common length of rows....this should be our data and useful header
-	# # ToDo: think about more efficient way to do this
-	row_lengths = []
-	row_type_patterns = []
+def removeEmptyRows(old_rows):
 	rows = []
 	for row in old_rows: 
 		pattern = getTypesPattern(row)
-
 		if isRowEmpty(pattern) == False:
 			# row = nibble(row)
-			pattern = getTypesPattern(row)  # Do this more efficiently, instead of calling again.
-
-			row_lengths.append(len(row))
-			row_type_patterns.append(tuple(pattern))
 			rows.append(row)
-		
-	counts = Counter(row_lengths)
-	common_row_length = counts.most_common(1)[0][0]
-
-	patternCounts = Counter(row_type_patterns)
-	common_row_patterns = patternCounts.most_common()
-
-	return rows, common_row_length, patternCounts, common_row_patterns
+	return rows
 
 
 
@@ -276,12 +270,18 @@ def cleanFile(file_name, dest_folder):
 	#converting an excel sheet to csv may result in empty cells of first row to be filled with 'Unnamed: #'
 	rows = cleanUnnamed(rows)
 
+	# need to remove empty columns before getting type patterns....could have lots of empty columns 
 	rows = removeEmptyColumns(rows)
 
-	row_type_patterns = getRowTypePatterns(rows)
-	print row_type_patterns
+	common_row_patterns = getRowTypePatterns(rows)
+	for row in common_row_patterns:
+		print row
 	
-	rows, common_row_length, patternCounts, common_row_patterns = getPatterns(rows)
+	# most common length should be our data rows 
+	counts = getCommonRowLengths(rows) #Counter(row_lengths)
+	common_row_length = counts.most_common(1)[0][0]
+
+	rows = removeEmptyRows(rows)
 
 	keepRows = getKeepRows(rows, common_row_length)
 	keepRows = flattenHeaders(keepRows)
