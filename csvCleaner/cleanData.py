@@ -48,7 +48,6 @@ def getType(elem):
 	return 'str'
 
 
-
 def getTypesPattern(row):
 	rowTypes = []
 	for elem in row:
@@ -63,8 +62,6 @@ def isRowEmpty(pattern):
 	return True
 
 
-
-
 def getRows(file_path):
 	rows = []
 
@@ -77,7 +74,6 @@ def getRows(file_path):
 		f.close()
 	return rows
 	
-
 
 def cleanUnnamed(rows):
 	row = rows[0] 	# get the first row, only one that could have 'Unnamed: # ' cells
@@ -110,7 +106,6 @@ def getCommonRowLengths(rows):
 	return Counter(lengths)
 
 
-
 # ToDo: clean this up, so it returns fewer things!!!! 
 def removeEmptyRows(old_rows):
 	rows = []
@@ -120,7 +115,6 @@ def removeEmptyRows(old_rows):
 			# row = nibble(row)
 			rows.append(row)
 	return rows
-
 
 
 def getKeepRows(rows, common_row_length):
@@ -202,7 +196,6 @@ def removeEmptyColumns(keepRows):
 		if remove_col == True:
 			columns_to_remove.append(col)
 
-
 	# # Now go through and remove columns from header and data
 	cleanRows = []
 	for row in keepRows:
@@ -226,7 +219,7 @@ def possibleSumsRow(row):
 
 
 def removeSumsRow(rows):
-	# assumption: have already removed any additional sumary table
+	# assumption: have already removed any additional summary table
 	# assumption: the last row is either data, or contains sums of some columns
 
 	row_y = rows[len(rows)-2]
