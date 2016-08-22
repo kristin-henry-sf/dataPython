@@ -128,16 +128,15 @@ def removeExtraTopRows(rows, common_row_length):
 	return rows[i-1:]
 
 
-# Might want to remove this....redundant? 
-def getKeepRows(rows, common_row_length):
-	# Save header and data rows 
-	keepRows = []
-	for row in rows:
-		# print row
-		if len(row) == common_row_length:
-			keepRows.append(row)
-
-	return keepRows
+def removeSummaryTable(rows, common_row_length):
+	i = len(rows)
+	for row in reversed(rows):
+		i-=1
+		row = nibble(row)
+		print 'nibbled: ', row
+		if len(row) >= common_row_length/2:
+			break
+	return rows[:i+1]
 
 
 def flattenHeaders(keepRows):
@@ -281,8 +280,6 @@ def cleanFile(file_name, dest_folder, top=False):
 	#converting an excel sheet to csv may result in empty cells of first row to be filled with 'Unnamed: #'
 	rows = cleanUnnamed(rows)
 
-
-
 	# need to remove empty columns before getting type patterns....could have lots of empty columns 
 	rows = removeEmptyColumns(rows)
 
@@ -297,21 +294,14 @@ def cleanFile(file_name, dest_folder, top=False):
 
 	rows = removeEmptyRows(rows)
 
-
-
 	# Only execute this if command line argument 'top' is used
 	if top:
 		rows = removeExtraTopRows(rows, common_row_length)
 
-	
-
-	rows = getKeepRows(rows, common_row_length)
-
-
 
 	rows = flattenHeaders(rows)
 
-	
+	rows = removeSummaryTable(rows, common_row_length)
 
 	# any extra tables must be already removed by now
 	rows = removeSumsRow(rows)
