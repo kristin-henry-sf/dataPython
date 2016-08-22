@@ -1,4 +1,4 @@
-import os
+import os, sys
 
 from cleanData import cleanFile
 from convertFile import checkFileType, readCSV
@@ -9,10 +9,10 @@ CLEANED_FOLDER = './cleaned/'
 RESULTS_FOLDER = './queryResults/'
 ALLOWED_EXTENSIONS = set(['csv'])
 
-# filename = './tmp/dummyData1.csv'
+filename = './tmp/dummyData1.csv'
 # filename = './tmp/dummyData2.csv'
 # filename = './tmp/dummyData2.xlsx'
-filename = './tmp/STEMtest_1.csv'
+# filename = './tmp/STEMtest_1.csv'
 # filename = './tmp/2010 Federal STEM Education Inventory Data Set.xls'
 # Question: should I automatically rename file, replacing spaces with underscores?
 
@@ -23,4 +23,4 @@ csv_path = checkFileType(filename, UPLOAD_FOLDER)
 
 csv_path = filename
 
-cleanFile(csv_path, CLEANED_FOLDER)
+cleanFile(csv_path, CLEANED_FOLDER, 'top' in sys.argv)

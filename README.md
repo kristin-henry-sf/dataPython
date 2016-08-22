@@ -12,6 +12,10 @@ Note: this is very rough, first iteration
 
 ```python hello.py```
 
+if removing extra rows above header rows, use this:
+
+```python hello.py top```
+
 
 ## Test files
 Example csv files to test code with. Code expects them in the 'tmp' folder.

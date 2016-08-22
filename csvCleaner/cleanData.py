@@ -21,6 +21,7 @@ def nibble(row):
 		else:
 			break
 
+	# ToDo: come up with better test, this only works if rows are long. Won't work for rows with 2 or so elements.
 	#  If less than half of cells at end of row are empty, we may have data or header
 	if(empties < len(row)/2):
 		return row
@@ -114,15 +115,26 @@ def removeEmptyRows(old_rows):
 	for row in old_rows: 
 		pattern = getTypesPattern(row)
 		if isRowEmpty(pattern) == False:
-			# row = nibble(row)
 			rows.append(row)
 	return rows
 
 
+# ToDo: make sure we don't remove heaaders that are empty in last cells
+def removeExtraTopRows(rows, common_row_length):
+	keepRows = []
+	for row in rows:
+		row = nibble(row)
+		if len(row) == common_row_length:
+			keepRows.append(row)
+	return keepRows
+
+
+# Might want to remove this....redundant? 
 def getKeepRows(rows, common_row_length):
 	# Save header and data rows 
 	keepRows = []
 	for row in rows:
+		# print row
 		if len(row) == common_row_length:
 			keepRows.append(row)
 
@@ -251,12 +263,17 @@ def saveAsCSV(cleanRows, dest_folder, file_name_short):
 	f.close()
 
 # ---------------------------------------------------------------------------------------
-def cleanFile(file_name, dest_folder):
+def cleanFile(file_name, dest_folder, top=False):
+
+
+	if top:
+		#ToDo: add controls to trigger removal of extra rows at top of file
+		print '-->remove extra rows at top of this csv'
+
+
 	file_path = file_name
 	file_name = os.path.basename(file_name)
 	file_name_short = os.path.splitext(file_name)[0]
-
-	print file_path
 
 
 	# not sure if this is good idea....might use up memory
@@ -265,12 +282,16 @@ def cleanFile(file_name, dest_folder):
 	#converting an excel sheet to csv may result in empty cells of first row to be filled with 'Unnamed: #'
 	rows = cleanUnnamed(rows)
 
+
+
 	# need to remove empty columns before getting type patterns....could have lots of empty columns 
 	rows = removeEmptyColumns(rows)
 
+
+
 	common_row_patterns = getRowTypePatterns(rows)
-	for row in common_row_patterns:
-		print row
+	# for row in common_row_patterns:
+	# 	print row
 	
 	# most common length should be our data rows 
 	counts = getCommonRowLengths(rows) #Counter(row_lengths)
@@ -278,15 +299,30 @@ def cleanFile(file_name, dest_folder):
 
 	rows = removeEmptyRows(rows)
 
-	keepRows = getKeepRows(rows, common_row_length)
-	keepRows = flattenHeaders(keepRows)
+
+
+	# Working here!  Only execute this if command line argument 'top' is used
+	if top:
+		rows = removeExtraTopRows(rows, common_row_length)
+
+	
+
+	rows = getKeepRows(rows, common_row_length)
+
+
+
+	rows = flattenHeaders(rows)
+
+	for row in rows:
+		print row
 
 	# any extra tables must be already removed by now
-	cleanRows = removeSumsRow(keepRows)
+	rows = removeSumsRow(rows)
 	
-	saveAsCSV(cleanRows, dest_folder, file_name_short)
+	saveAsCSV(rows, dest_folder, file_name_short)
 
-	# # this is just for testing
+	# this is just for testing
+	# print '-------------------------------------'
 	# for row in rows:
 	# 	print row
 #--------------------------------------------------------------------------------------------
