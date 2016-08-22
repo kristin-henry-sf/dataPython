@@ -16,6 +16,8 @@ if removing extra rows above header rows, use this:
 
 ```python hello.py top```
 
+**Must use 'top'** argv to indicate that the first row is not a header. Eventually, this won't be needed.
+
 
 ## Test files
 Example csv files to test code with. Code expects them in the 'tmp' folder.
