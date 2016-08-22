@@ -11,9 +11,10 @@ ALLOWED_EXTENSIONS = set(['csv'])
 
 # filename = './tmp/dummyData1.csv'
 # filename = './tmp/dummyData2.csv'
-filename = './tmp/dummyData3.csv'
+# filename = './tmp/dummyData3.csv'
 # filename = './tmp/dummyData2.xlsx'
 # filename = './tmp/STEMtest_1.csv'
+filename = './tmp/STEMtest_full.csv'
 # filename = './tmp/2010 Federal STEM Education Inventory Data Set.xls'
 # Question: should I automatically rename file, replacing spaces with underscores?
 
@@ -24,4 +25,22 @@ csv_path = checkFileType(filename, UPLOAD_FOLDER)
 
 csv_path = filename
 
-cleanFile(csv_path, CLEANED_FOLDER, 'top' in sys.argv)
+
+# Ok, this is a bit of a hack, but I'm doing it this way until I figure out a better way
+cols = []
+getCols = False
+for arg in sys.argv:
+	if getCols:
+		if arg[0] != '-':
+			cols.append(arg)
+		else:
+			getCols = False
+			break
+	if arg =='-i':
+		getCols = True
+	
+
+print 'cols: ', cols
+
+
+cleanFile(csv_path, CLEANED_FOLDER, 'top' in sys.argv, columns = cols)
