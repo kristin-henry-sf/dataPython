@@ -121,12 +121,13 @@ def removeEmptyRows(old_rows):
 
 # ToDo: make sure we don't remove heaaders that are empty in last cells
 def removeExtraTopRows(rows, common_row_length):
-	keepRows = []
+	i = 0
 	for row in rows:
+		i+=1
 		row = nibble(row)
 		if len(row) == common_row_length:
-			keepRows.append(row)
-	return keepRows
+			break
+	return rows[i-1:]
 
 
 # Might want to remove this....redundant? 
@@ -144,13 +145,16 @@ def getKeepRows(rows, common_row_length):
 def flattenHeaders(keepRows):
 	# This is not as robust as it can be, keeping it simple for now
 	# Assumption: first rows are likely to be headers, and when pattern becomes 'common', it's data
-	# Assumption: headers will not have numbers as names --> header rows don't have int types in them
+	# Assumption: headers will not have numbers as names --> header rows don't have number types in them
 	headers = []
-	for row in keepRows[:3]:
+	for row in keepRows:
+		print row
 		if 'num' not in getTypesPattern(row):
 			headers.append(row)
-	
-	# print headers
+		else:
+			break
+
+	print '------'
 
 	if len(headers) > 1:
 
@@ -239,11 +243,8 @@ def removeSumsRow(rows):
 	row_y = rows[len(rows)-2]
 	row_z = rows[len(rows)-1]
 
-	# print possibleSumsRow(row_z)
-	# print possibleSumsRow(row_y)
-
-	print row_y, getTypesPattern(row_y)
-	print row_z, getTypesPattern(row_z)
+	# print row_y, getTypesPattern(row_y)
+	# print row_z, getTypesPattern(row_z)
 
 
 	# ToDo make this more robust!!! Check previous rows...
@@ -288,7 +289,6 @@ def cleanFile(file_name, dest_folder, top=False):
 	rows = removeEmptyColumns(rows)
 
 
-
 	common_row_patterns = getRowTypePatterns(rows)
 	# for row in common_row_patterns:
 	# 	print row
@@ -301,7 +301,7 @@ def cleanFile(file_name, dest_folder, top=False):
 
 
 
-	# Working here!  Only execute this if command line argument 'top' is used
+	# Only execute this if command line argument 'top' is used
 	if top:
 		rows = removeExtraTopRows(rows, common_row_length)
 
@@ -313,11 +313,13 @@ def cleanFile(file_name, dest_folder, top=False):
 
 	rows = flattenHeaders(rows)
 
-	for row in rows:
-		print row
+	
 
 	# any extra tables must be already removed by now
 	rows = removeSumsRow(rows)
+
+	for row in rows:
+		print row
 	
 	saveAsCSV(rows, dest_folder, file_name_short)
 
