@@ -4,6 +4,8 @@ import numbers
 # import pandas as pd
 from collections import Counter
 
+# adding a line here, to practice some git skills
+
 
 # This is for dealing with csv's that have forced empty cells in extra rows (non data, non header)
 def nibble(row):
