@@ -135,7 +135,7 @@ def removeSummaryTable(rows, common_row_length):
 	for row in reversed(rows):
 		i-=1
 		row = nibble(row)
-		print 'nibbled: ', row
+		# print 'nibbled: ', row
 		if len(row) >= common_row_length/2:
 			break
 	return rows[:i+1]
@@ -147,7 +147,7 @@ def flattenHeaders(keepRows):
 	# Assumption: headers will not have numbers as names --> header rows don't have number types in them
 	headers = []
 	for row in keepRows:
-		print row
+		# print row
 		if 'num' not in getTypesPattern(row):
 			headers.append(row)
 		else:
@@ -263,7 +263,9 @@ def saveAsCSV(cleanRows, dest_folder, file_name_short):
 	f.close()
 
 # ---------------------------------------------------------------------------------------
-def cleanFile(file_name, dest_folder, top=False):
+def cleanFile(file_name, dest_folder, top=False, columns=[]):
+
+	print 'columns to save: ', columns
 
 
 	if top:
@@ -308,8 +310,8 @@ def cleanFile(file_name, dest_folder, top=False):
 	# any extra tables must be already removed by now
 	rows = removeSumsRow(rows)
 
-	for row in rows:
-		print row
+	# for row in rows:
+	# 	print row[1]
 	
 	saveAsCSV(rows, dest_folder, file_name_short)
 
