@@ -9,8 +9,8 @@ CLEANED_FOLDER = './cleaned/'
 RESULTS_FOLDER = './queryResults/'
 ALLOWED_EXTENSIONS = set(['csv'])
 
-filename = './tmp/dummyData1.csv'
-# filename = './tmp/dummyData2.csv'
+# filename = './tmp/dummyData1.csv'
+filename = './tmp/dummyData2.csv'
 # filename = './tmp/dummyData2.xlsx'
 # filename = './tmp/STEMtest_1.csv'
 # filename = './tmp/2010 Federal STEM Education Inventory Data Set.xls'
