@@ -18,7 +18,7 @@ if removing extra rows above header rows, use this:
 
 ```python hello.py top```
 
-	**Must use 'top'** argv to indicate that the first row is not a header. Eventually, this won't be needed.
+* **Must use 'top'** argv to indicate that the first row is not a header. Eventually, this won't be needed.
 
 ```python hello.py -i 10-29, 45```
 * can select specific columns individually, and in ranges, by index
