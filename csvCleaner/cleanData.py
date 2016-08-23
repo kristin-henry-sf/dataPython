@@ -295,10 +295,6 @@ def saveAsCSV(cleanRows, dest_folder, file_name_short):
 # ---------------------------------------------------------------------------------------
 def cleanFile(file_name, dest_folder, top=False, columns=[]):
 
-	print 'columns to save: ', columns
-
-	#ToDo: make sure we take all columns if not indicated otherwise
-
 	file_path = file_name
 	file_name = os.path.basename(file_name)
 	file_name_short = os.path.splitext(file_name)[0]
@@ -306,13 +302,9 @@ def cleanFile(file_name, dest_folder, top=False, columns=[]):
 
 	rows = getRows(file_path)
 
-	for row in rows:
-		print row
-
-
-
-
-	rows = getColumns(rows, columns)
+	#make sure we take all columns if not indicated otherwise
+	if len(columns) >0:
+		rows = getColumns(rows, columns)
 
 	#converting an excel sheet to csv may result in empty cells of first row to be filled with 'Unnamed: #'
 	rows = cleanUnnamed(rows)
@@ -334,14 +326,14 @@ def cleanFile(file_name, dest_folder, top=False, columns=[]):
 	# Only execute this if command line argument 'top' is used
 	if top:
 		print '-->remove extra rows at top of this csv'
-		# rows = removeExtraTopRows(rows, common_row_length)
+		rows = removeExtraTopRows(rows, common_row_length)
 
 
 	rows = flattenHeaders(rows)
 
 	rows = removeSummaryTable(rows, common_row_length)
 
-	# any extra tables must be already removed by now
+	#any extra tables must be already removed by now
 	rows = removeSumsRow(rows)
 
 	# for row in rows:
