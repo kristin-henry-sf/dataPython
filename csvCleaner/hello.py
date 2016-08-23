@@ -9,12 +9,12 @@ CLEANED_FOLDER = './cleaned/'
 RESULTS_FOLDER = './queryResults/'
 ALLOWED_EXTENSIONS = set(['csv'])
 
-filename = './tmp/dummyData1.csv'
+# filename = './tmp/dummyData1.csv'
 # filename = './tmp/dummyData2.csv'
 # filename = './tmp/dummyData3.csv'
 # filename = './tmp/dummyData2.xlsx'
 # filename = './tmp/STEMtest_1.csv'
-# filename = './tmp/STEMtest_full.csv'
+filename = './tmp/STEMtest_full.csv'
 # filename = './tmp/2010 Federal STEM Education Inventory Data Set.xls'
 # Question: should I automatically rename file, replacing spaces with underscores?
 
@@ -39,15 +39,25 @@ for arg in sys.argv:
 			break
 	if arg =='-i':
 		getCols = True
+
+rows = []
+getRows = False
+for arg in sys.argv:
+	print arg
+	if getRows:
+		if arg[0] != '-':
+			rows.append(arg)
+		else:
+			getRows = False
+			break
+	if arg == '-rows':
+		getRows = True
 	
 
-print 'cols: ', cols
-
 if 'top' in sys.argv:
-	print 'remove top'
-	cleanFile(csv_path, CLEANED_FOLDER, top='top' in sys.argv, columns = cols)
+	cleanFile(csv_path, CLEANED_FOLDER, top='top' in sys.argv, columns = cols, rownums = rows)
 else:
-	cleanFile(csv_path, CLEANED_FOLDER, columns = cols)
+	cleanFile(csv_path, CLEANED_FOLDER, columns = cols, rownums = rows)
 
 
 
