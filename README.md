@@ -27,6 +27,14 @@ if removing extra rows above header rows, use this:
 * new arguments after -i need to use a '-', to indicate that it's different flag
 
 
+```python hello.py -rows 10``` or ```python hello.py -rows 1-20```
+* These allow you to limit the number of rows. 
+* If only one number, it's assumed you want first row and on.
+
+```python hello.py top -rows 10 -i 1-4```
+* This lets you remove extra headers and save specific rows and columns from the original file
+
+
 
 
 ## Test files

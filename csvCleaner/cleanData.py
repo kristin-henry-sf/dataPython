@@ -78,6 +78,23 @@ def isInRanges(i, ranges):
 	return False
 			
 
+def getLimitedRows(rows, rownums):
+	print 'rows to get', rownums
+	if '-' in rownums:
+		nums = rownums.split('-')
+		min = int(nums[0])
+		max = int(nums[2])
+	else:
+		min = 0
+		max = int(rownums[0])
+
+	print min, max
+	rows = rows[min:max]
+
+	# return rows[min:max]
+	return rows
+
+
 def getRows(file_path):
 	rows = []
 
@@ -176,7 +193,7 @@ def flattenHeaders(keepRows):
 	# Assumption: first rows are likely to be headers, and when pattern becomes 'common', it's data
 	# Assumption: headers will not have numbers as names --> header rows don't have number types in them
 	headers = []
-	for row in keepRows:
+	for row in keepRows[:2]:
 		# print row
 		if 'num' not in getTypesPattern(row):
 			headers.append(row)
@@ -293,7 +310,7 @@ def saveAsCSV(cleanRows, dest_folder, file_name_short):
 	f.close()
 
 # ---------------------------------------------------------------------------------------
-def cleanFile(file_name, dest_folder, top=False, columns=[]):
+def cleanFile(file_name, dest_folder, top=False, columns=[], rownums=[]):
 
 	file_path = file_name
 	file_name = os.path.basename(file_name)
@@ -302,42 +319,41 @@ def cleanFile(file_name, dest_folder, top=False, columns=[]):
 
 	rows = getRows(file_path)
 
-	#make sure we take all columns if not indicated otherwise
-	if len(columns) >0:
-		rows = getColumns(rows, columns)
-
 	#converting an excel sheet to csv may result in empty cells of first row to be filled with 'Unnamed: #'
 	rows = cleanUnnamed(rows)
 
-	# need to remove empty columns before getting type patterns....could have lots of empty columns 
+	# could have lots of empty columns 
 	rows = removeEmptyColumns(rows)
 
 
+	# get data type patterns from data in rows
 	common_row_patterns = getRowTypePatterns(rows)
-	# for row in common_row_patterns:
-	# 	print row
-	
-	# most common length should be our data rows 
-	counts = getCommonRowLengths(rows) #Counter(row_lengths)
-	common_row_length = counts.most_common(1)[0][0]
+	counts = getCommonRowLengths(rows) 
+	common_row_length = counts.most_common(1)[0][0] #most common length should be our data rows 
 
-	rows = removeEmptyRows(rows)
 
 	# Only execute this if command line argument 'top' is used
 	if top:
-		print '-->remove extra rows at top of this csv'
 		rows = removeExtraTopRows(rows, common_row_length)
 
 
+	rows = removeEmptyRows(rows)
+
+	# some files have nested headers, we want just one row of header names
 	rows = flattenHeaders(rows)
 
+	# some files have summary tables below all the actual data 
 	rows = removeSummaryTable(rows, common_row_length)
 
 	#any extra tables must be already removed by now
 	rows = removeSumsRow(rows)
 
-	# for row in rows:
-	# 	print row[1]
+	# make sure we take all columns and rows if not indicated otherwise
+	if len(rownums) >0:
+		rows = getLimitedRows(rows, rownums)
+	if len(columns) >0:
+		rows = getColumns(rows, columns)
+
 	
 	saveAsCSV(rows, dest_folder, file_name_short)
 
