@@ -18,7 +18,7 @@ filename = './tmp/STEMtest_full.csv'
 # filename = './tmp/2010 Federal STEM Education Inventory Data Set.xls'
 # Question: should I automatically rename file, replacing spaces with underscores?
 
-csv_path = checkFileType(filename, UPLOAD_FOLDER)
+# csv_path = checkFileType(filename, UPLOAD_FOLDER)
 # print 'csv_path from main: ', csv_path
 
 # readCSV(csv_path)
@@ -44,3 +44,6 @@ print 'cols: ', cols
 
 
 cleanFile(csv_path, CLEANED_FOLDER, 'top' in sys.argv, columns = cols)
+
+
+
