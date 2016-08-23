@@ -9,12 +9,12 @@ CLEANED_FOLDER = './cleaned/'
 RESULTS_FOLDER = './queryResults/'
 ALLOWED_EXTENSIONS = set(['csv'])
 
-# filename = './tmp/dummyData1.csv'
+filename = './tmp/dummyData1.csv'
 # filename = './tmp/dummyData2.csv'
 # filename = './tmp/dummyData3.csv'
 # filename = './tmp/dummyData2.xlsx'
 # filename = './tmp/STEMtest_1.csv'
-filename = './tmp/STEMtest_full.csv'
+# filename = './tmp/STEMtest_full.csv'
 # filename = './tmp/2010 Federal STEM Education Inventory Data Set.xls'
 # Question: should I automatically rename file, replacing spaces with underscores?
 
@@ -26,7 +26,8 @@ filename = './tmp/STEMtest_full.csv'
 csv_path = filename
 
 
-# Ok, this is a bit of a hack, but I'm doing it this way until I figure out a better way
+# Ok, this is a bit of a hack, but I'm doing it this way until I figure out a better way, needs to be cross-platform
+# using '-' to find  next flags in command line args
 cols = []
 getCols = False
 for arg in sys.argv:
@@ -42,8 +43,13 @@ for arg in sys.argv:
 
 print 'cols: ', cols
 
+if 'top' in sys.argv:
+	print 'remove top'
+	cleanFile(csv_path, CLEANED_FOLDER, top='top' in sys.argv, columns = cols)
+else:
+	cleanFile(csv_path, CLEANED_FOLDER, columns = cols)
 
-cleanFile(csv_path, CLEANED_FOLDER, 'top' in sys.argv, columns = cols)
+
 
 
 
