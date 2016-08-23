@@ -64,6 +64,19 @@ def isRowEmpty(pattern):
 			return False
 	return True
 
+def isInRanges(i, ranges):
+	for r in ranges:
+		r = r.replace(',', '')
+		if '-' in r:
+			nums = r.split('-')
+			if float(i) >= float(nums[0]) and float(i) <= float(nums[1]):
+				return True
+		else:
+			if float(i) == float(r):
+				return True
+	
+	return False
+			
 
 def getRows(file_path):
 	rows = []
@@ -77,6 +90,23 @@ def getRows(file_path):
 		f.close()
 	return rows
 	
+
+def getColumns(rows, columns):
+	#ToDo: this is not efficient....look for better ways
+	newrows = []
+
+	for row in rows:
+		i = 0
+		newrow = []
+		for elem in row:
+			if isInRanges(i, columns):
+				newrow.append(elem)
+			i+=1
+
+		newrows.append(newrow)
+
+	return newrows
+
 
 def cleanUnnamed(rows):
 	row = rows[0] 	# get the first row, only one that could have 'Unnamed: # ' cells
@@ -267,19 +297,22 @@ def cleanFile(file_name, dest_folder, top=False, columns=[]):
 
 	print 'columns to save: ', columns
 
-
-	if top:
-		#ToDo: add controls to trigger removal of extra rows at top of file
-		print '-->remove extra rows at top of this csv'
-
+	#ToDo: make sure we take all columns if not indicated otherwise
 
 	file_path = file_name
 	file_name = os.path.basename(file_name)
 	file_name_short = os.path.splitext(file_name)[0]
 
 
-	# not sure if this is good idea....might use up memory
 	rows = getRows(file_path)
+
+	for row in rows:
+		print row
+
+
+
+
+	rows = getColumns(rows, columns)
 
 	#converting an excel sheet to csv may result in empty cells of first row to be filled with 'Unnamed: #'
 	rows = cleanUnnamed(rows)
@@ -300,7 +333,8 @@ def cleanFile(file_name, dest_folder, top=False, columns=[]):
 
 	# Only execute this if command line argument 'top' is used
 	if top:
-		rows = removeExtraTopRows(rows, common_row_length)
+		print '-->remove extra rows at top of this csv'
+		# rows = removeExtraTopRows(rows, common_row_length)
 
 
 	rows = flattenHeaders(rows)
@@ -315,10 +349,10 @@ def cleanFile(file_name, dest_folder, top=False, columns=[]):
 	
 	saveAsCSV(rows, dest_folder, file_name_short)
 
-	# this is just for testing
-	# print '-------------------------------------'
-	# for row in rows:
-	# 	print row
+	#this is just for testing
+	print '-------------------------------------'
+	for row in rows:
+		print row
 #--------------------------------------------------------------------------------------------
 
 
