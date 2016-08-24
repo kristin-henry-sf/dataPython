@@ -4,7 +4,6 @@ import numbers
 # import pandas as pd
 from collections import Counter
 
-# adding a line here, to practice some git skills
 
 
 # This is for dealing with csv's that have forced empty cells in extra rows (non data, non header)
@@ -79,7 +78,6 @@ def isInRanges(i, ranges):
 			
 
 def getLimitedRows(rows, rownums):
-	print 'rows to get', rownums
 	if '-' in rownums:
 		nums = rownums.split('-')
 		min = int(nums[0])
@@ -88,10 +86,8 @@ def getLimitedRows(rows, rownums):
 		min = 0
 		max = int(rownums[0])
 
-	print min, max
 	rows = rows[min:max]
 
-	# return rows[min:max]
 	return rows
 
 
@@ -182,7 +178,6 @@ def removeSummaryTable(rows, common_row_length):
 	for row in reversed(rows):
 		i-=1
 		row = nibble(row)
-		# print 'nibbled: ', row
 		if len(row) >= common_row_length/2:
 			break
 	return rows[:i+1]
@@ -194,16 +189,12 @@ def flattenHeaders(keepRows):
 	# Assumption: headers will not have numbers as names --> header rows don't have number types in them
 	headers = []
 	for row in keepRows[:2]:
-		# print row
 		if 'num' not in getTypesPattern(row):
 			headers.append(row)
 		else:
 			break
 
-	print '------'
-
 	if len(headers) > 1:
-
 		# remove the old headers 
 		keepRows = keepRows[len(headers):]
 
@@ -285,18 +276,12 @@ def possibleSumsRow(row):
 def removeSumsRow(rows):
 	# assumption: have already removed any additional summary table
 	# assumption: the last row is either data, or contains sums of some columns
-
 	row_y = rows[len(rows)-2]
 	row_z = rows[len(rows)-1]
-
-	# print row_y, getTypesPattern(row_y)
-	# print row_z, getTypesPattern(row_z)
-
 
 	# ToDo make this more robust!!! Check previous rows...
 	if possibleSumsRow(row_z):
 		rows = rows[:-1]
-
 
 	return rows
 
@@ -308,6 +293,7 @@ def saveAsCSV(cleanRows, dest_folder, file_name_short):
 		writer.writerows(cleanRows)
 
 	f.close()
+
 
 # ---------------------------------------------------------------------------------------
 def cleanFile(file_name, dest_folder, top=False, columns=[], rownums=[]):
