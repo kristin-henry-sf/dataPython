@@ -35,6 +35,11 @@ if removing extra rows above header rows, use this:
 * This lets you remove extra headers and save specific rows and columns from the original file
 
 
+```python hello.py -json```
+* saves data in json format
+* still working on this...
+
+
 
 
 ## Test files

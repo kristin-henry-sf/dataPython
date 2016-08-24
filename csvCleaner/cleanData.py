@@ -295,8 +295,13 @@ def saveAsCSV(cleanRows, dest_folder, file_name_short):
 	f.close()
 
 
+def saveAsJSON(rows, dest_folder, file_name_short):
+	print 'saving as json not quite ready yet'
+
+
+
 # ---------------------------------------------------------------------------------------
-def cleanFile(file_name, dest_folder, top=False, columns=[], rownums=[]):
+def cleanFile(file_name, dest_folder, top=False, columns=[], rownums=[], json=False):
 
 	file_path = file_name
 	file_name = os.path.basename(file_name)
@@ -340,8 +345,10 @@ def cleanFile(file_name, dest_folder, top=False, columns=[], rownums=[]):
 	if len(columns) >0:
 		rows = getColumns(rows, columns)
 
-	
-	saveAsCSV(rows, dest_folder, file_name_short)
+	if json:
+		saveAsJSON(rows, dest_folder, file_name_short)
+	else:
+		saveAsCSV(rows, dest_folder, file_name_short)
 
 	#this is just for testing
 	print '-------------------------------------'
