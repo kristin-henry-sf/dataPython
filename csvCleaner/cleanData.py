@@ -1,5 +1,5 @@
 import os
-import csv
+import csv, json
 import numbers
 # import pandas as pd
 from collections import Counter
@@ -296,7 +296,21 @@ def saveAsCSV(cleanRows, dest_folder, file_name_short):
 
 
 def saveAsJSON(rows, dest_folder, file_name_short):
-	print 'saving as json not quite ready yet'
+	# this needs improvements
+	complete_name = os.path.join(dest_folder, file_name_short + '_cleaned.json')
+	data = []
+
+	headers = rows[0]
+	for row in rows[1:]:
+		d = {}
+		i =0
+		for elem in headers:
+			d[elem] = row[i]
+			i+=1
+		data.append(d)
+
+	with open(complete_name, 'w') as f:
+		json.dump(data, f)
 
 
 
