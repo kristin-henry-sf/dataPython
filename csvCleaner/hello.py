@@ -14,8 +14,9 @@ ALLOWED_EXTENSIONS = set(['csv'])
 # filename = './tmp/dummyData3.csv'
 # filename = './tmp/dummyData2.xlsx'
 # filename = './tmp/STEMtest_1.csv'
-filename = './tmp/STEMtest_full.csv'
+# filename = './tmp/STEMtest_full.csv'
 # filename = './tmp/2010 Federal STEM Education Inventory Data Set.xls'
+filename = './tmp/Mobile_Food_Schedule.csv'
 # Question: should I automatically rename file, replacing spaces with underscores?
 
 # csv_path = checkFileType(filename, UPLOAD_FOLDER)

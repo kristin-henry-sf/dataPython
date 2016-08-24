@@ -56,6 +56,11 @@ Cleaned/processed files are saved in 'cleaned' folder.
 * http://catalog.data.gov/dataset/2010-federal-stem-education-inventory-data-set
 * form used for data collection is also available
 
+**Mobile Food Schedule**
+* has dates, need converting, could be fun time series
+* https://catalog.data.gov/dataset/mobile-food-schedule-7fd4d
+* already in csv format
+
 
 
 ## Resources:
