@@ -21,6 +21,7 @@ if removing extra rows above header rows, use this:
 ```python hello.py -skim```
 
 * Must use '-skim' argv to indicate that the first row is not a header. Eventually, this may not be needed.
+* need more example files to test with, especially with extra top rows + nested heaaders with sparse content in first header row
 
 
 **select specific columns**
