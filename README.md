@@ -16,12 +16,12 @@ Note: this is very rough, first iteration
 
 **Remove extra rows from top**
 
-if removing extra rows above header rows, use this:
+To remove extra rows above header rows, like the mailing address and logo of data source:
 
 ```python hello.py -skim```
 
 * Must use '-skim' argv to indicate that the first row is not a header. 
-	* Eventually, usere intervention may not be needed and extra rows may be automatically detected as a pattern in the source file
+	* Eventually, user intervention may not be needed and extra rows may be automatically detected as a pattern in the source file
 * need more example files to test with, especially with extra top rows + nested headers with sparse content in first header row
 
 
@@ -59,7 +59,7 @@ XLS files now converted to csv before starting cleaning process.
 Cleaned/processed files are saved in 'cleaned' folder.
 
 **dummyData1.csv**
-* has extra cells at top of file, that are not headers or data. need to be removed
+* has extra cells at top of file, that are not headers and not data. need to be removed
 * has extra numbers in cells below two collumns. need to be removed 
 
 ## Candidates for test files
