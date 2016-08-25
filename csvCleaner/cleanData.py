@@ -315,7 +315,7 @@ def saveAsJSON(rows, dest_folder, file_name_short):
 
 
 # ---------------------------------------------------------------------------------------
-def cleanFile(file_name, dest_folder, top=False, columns=[], rownums=[], json=False):
+def cleanFile(file_name, dest_folder, skim=False, columns=[], rownums=[], json=False):
 
 	file_path = file_name
 	file_name = os.path.basename(file_name)
@@ -338,7 +338,9 @@ def cleanFile(file_name, dest_folder, top=False, columns=[], rownums=[], json=Fa
 
 
 	# Only execute this if command line argument 'top' is used
-	if top:
+	if skim:
+		print 'skim of the top'
+
 		rows = removeExtraTopRows(rows, common_row_length)
 
 

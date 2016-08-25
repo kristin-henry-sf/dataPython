@@ -18,9 +18,9 @@ Note: this is very rough, first iteration
 
 if removing extra rows above header rows, use this:
 
-```python hello.py top```
+```python hello.py -skim```
 
-* Must use 'top' argv to indicate that the first row is not a header. Eventually, this may not be needed.
+* Must use '-skim' argv to indicate that the first row is not a header. Eventually, this may not be needed.
 
 
 **select specific columns**
@@ -37,7 +37,7 @@ if removing extra rows above header rows, use this:
 * These allow you to limit the number of rows. 
 * If only one number, it's assumed you want first row and on.
 
-```python hello.py top -rows 10 -i 1-4```
+```python hello.py -skim -rows 10 -i 1-4```
 * This lets you remove extra headers and save specific rows and columns from the original file
 
 
