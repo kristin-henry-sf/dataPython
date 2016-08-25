@@ -12,9 +12,9 @@ Note: this is very rough, first iteration
 
 ```python hello.py```
 
-# Command line arguments
+## Command line arguments
 
-## Remove extra rows from top
+**Remove extra rows from top**
 
 if removing extra rows above header rows, use this:
 
@@ -23,7 +23,7 @@ if removing extra rows above header rows, use this:
 * **Must use 'top'** argv to indicate that the first row is not a header. Eventually, this may not be needed.
 
 
-## select specific columns
+**select specific columns**
 
 ```python hello.py -i 10-29, 45```
 
@@ -31,7 +31,7 @@ if removing extra rows above header rows, use this:
 * can select specific columns individually, and in ranges, by index
 * new arguments after -i need to use a '-', to indicate that it's different flag
 
-## select specific rows
+**select specific rows**
 
 ```python hello.py -rows 10``` or ```python hello.py -rows 1-20```
 * These allow you to limit the number of rows. 
@@ -41,7 +41,7 @@ if removing extra rows above header rows, use this:
 * This lets you remove extra headers and save specific rows and columns from the original file
 
 
-## export in json format
+**export in json format**
 
 ```python hello.py -json```
 * saves data in json format
