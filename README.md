@@ -1,8 +1,8 @@
 # dataPython
 
-The purpose of this project is to create a tool for cleaning up messy spreadsheets into well-formed csvfiles ready for analysis and saving to a database. Written in Python.
+The purpose of this project is to create a tool for cleaning up messy spreadsheets into well-formed csv files ready for analysis and saving to a database. Written in Python.
 
-Currently, it's a commandline tool.
+Currently, it's a command line tool.
 
 ## First, Quick and Dirty version
 Python 2.7 (for now)
@@ -12,7 +12,9 @@ Note: this is very rough, first iteration
 
 ```python hello.py```
 
-**Commanline arguments**
+# Command line arguments
+
+## Remove extra rows from top
 
 if removing extra rows above header rows, use this:
 
@@ -20,12 +22,16 @@ if removing extra rows above header rows, use this:
 
 * **Must use 'top'** argv to indicate that the first row is not a header. Eventually, this may not be needed.
 
+
+## select specific columns
+
 ```python hello.py -i 10-29, 45```
 
 * index starts at 0 
 * can select specific columns individually, and in ranges, by index
 * new arguments after -i need to use a '-', to indicate that it's different flag
 
+## select specific rows
 
 ```python hello.py -rows 10``` or ```python hello.py -rows 1-20```
 * These allow you to limit the number of rows. 
@@ -34,6 +40,8 @@ if removing extra rows above header rows, use this:
 ```python hello.py top -rows 10 -i 1-4```
 * This lets you remove extra headers and save specific rows and columns from the original file
 
+
+## export in json format
 
 ```python hello.py -json```
 * saves data in json format
