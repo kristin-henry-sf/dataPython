@@ -61,5 +61,6 @@ cleanFile(csv_path, CLEANED_FOLDER, skim='-skim' in sys.argv, columns = cols, ro
  
 
 
+# using to test merge
 
 
