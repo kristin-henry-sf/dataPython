@@ -9,12 +9,12 @@ CLEANED_FOLDER = './cleaned/'
 RESULTS_FOLDER = './queryResults/'
 ALLOWED_EXTENSIONS = set(['csv'])
 
-# filename = './tmp/dummyData1.csv'
+filename = './tmp/dummyData1.csv'
 # filename = './tmp/dummyData2.csv'
 # filename = './tmp/dummyData3.csv'
 # filename = './tmp/dummyData2.xlsx'
 # filename = './tmp/STEMtest_1.csv'
-filename = './tmp/STEMtest_sparse_1.csv'
+# filename = './tmp/STEMtest_sparse_1.csv'
 # filename = './tmp/STEMtest_full.csv'
 # filename = './tmp/2010 Federal STEM Education Inventory Data Set.xls'
 # filename = './tmp/Mobile_Food_Schedule.csv'
@@ -55,17 +55,12 @@ for arg in sys.argv:
 	if arg == '-rows':
 		getRows = True
 
-json = False
-if '-json' in sys.argv:
-	json = True
-	
 
-if 'top' in sys.argv:
-	cleanFile(csv_path, CLEANED_FOLDER, top='top' in sys.argv, columns = cols, rownums = rows, json = json)
-else:
-	cleanFile(csv_path, CLEANED_FOLDER, columns = cols, rownums = rows, json = json)
+
+cleanFile(csv_path, CLEANED_FOLDER, skim='-skim' in sys.argv, columns = cols, rownums = rows, json = '-json' in sys.argv)
  
 
 
+# using to test merge
 
 
