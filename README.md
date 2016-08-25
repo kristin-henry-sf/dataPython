@@ -20,7 +20,8 @@ if removing extra rows above header rows, use this:
 
 ```python hello.py -skim```
 
-* Must use '-skim' argv to indicate that the first row is not a header. Eventually, this may not be needed.
+* Must use '-skim' argv to indicate that the first row is not a header. 
+	* Eventually, usere intervention may not be needed and extra rows may be automatically detected as a pattern in the source file
 * need more example files to test with, especially with extra top rows + nested headers with sparse content in first header row
 
 
