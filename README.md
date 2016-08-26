@@ -14,7 +14,7 @@ Note: this is very rough, first iteration
 
 ## Command line arguments
 
-**Remove extra rows from top**
+### Remove extra rows from top
 
 To remove extra rows above header rows, like the mailing address and logo of data source:
 
@@ -118,4 +118,3 @@ Cleaned/processed files are saved in 'cleaned' folder.
 * pay attention to XML vulnerabilities and Excel files: http://xlrd.readthedocs.io/en/latest/vulnerabilities.html
 
 
-# test line
