@@ -57,7 +57,7 @@ Some spreadsheets have data that is categorical, but in a wide format in the tab
 
 example data:
 
-```hd1, hd2, hd3, __, __ , hd6, hd7
+>hd1, hd2, hd3, __, __ , hd6, hd7
 
 001, 001, 001, dt4, dt5, 001, 001
 
@@ -67,8 +67,20 @@ example data:
 
 004, 004, 004, ___ , ___ , 004, 004
 
-005, 005, 005, dt4, ___ , 005, 005```
+005, 005, 005, dt4, ___ , 005, 005
 
+
+
+
+
+In many examples, the data in the column is repetative and can be extracted as the name for that column.
+
+While the data in the column may be repetative, it might not be input in exactly the same way.  
+
+For example, a column may have values of 'Middle (6-8)' and 'middle school (6-8)'. Or there may be many variations. For the sakeof simplicity, the shortest non-empty string becomes the header name. 
+
+
+Also, when giving an extracted header name, I'm appending it with "****" so that it's easy to see which headers are extracted in the cleaned csv. Making it easier to go in and modify 'by hand' or with eventual UI for doing this task.
 
 
 
