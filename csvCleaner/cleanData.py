@@ -5,6 +5,9 @@ import numbers
 from collections import Counter
 
 
+def getColumn(matrix, i):
+	return [row[i] for row in matrix]
+
 
 # This is for dealing with csv's that have forced empty cells in extra rows (non data, non header)
 def nibble(row):
@@ -216,6 +219,10 @@ def flattenHeaders(keepRows):
 				pre = headers[0][i]
 				post = ''
 			if types == ('empty', 'empty'):
+				# Working Here!!!
+				print ''
+				print '---need to extract header from data:'
+				print set(getColumn(keepRows, i))
 				pre = ''
 				post = ''
 
