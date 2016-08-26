@@ -75,12 +75,13 @@ hd1, hd2, hd3, ____, ____, hd6, hd7
 
 In many examples, the data in the column is repetative and can be extracted as the name for that column.
 
-While the data in the column may be repetative, it might not be input in exactly the same way.  
-
-For example, a column may have values of 'Middle (6-8)' and 'middle school (6-8)'. Or there may be many variations. For the sakeof simplicity, the shortest non-empty string becomes the header name. 
+While the data in the column may be repetative, it might not be input in exactly the same way. For example, a column may have values of 'Middle (6-8)' and 'middle school (6-8)'. Or there may be many variations. For the sake of simplicity, the shortest non-empty string becomes the header name. 
 
 
-Also, when giving an extracted header name, I'm appending it with "****" so that it's easy to see which headers are extracted in the cleaned csv. Making it easier to go in and modify 'by hand' or with eventual UI for doing this task.
+When giving a column an extracted header name, currently prepending it with "****" 
+* so that it's easy to see which headers are extracted in the cleaned csv. Making it easier to go in and modify 'by hand' or with eventual UI for doing this task.
+
+Headerless columns, with only numerical data, are not yet addressed.
 
 
 
@@ -118,4 +119,3 @@ Cleaned/processed files are saved in 'cleaned' folder.
 * pay attention to XML vulnerabilities and Excel files: http://xlrd.readthedocs.io/en/latest/vulnerabilities.html
 
 
-#  test
