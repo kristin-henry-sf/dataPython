@@ -51,6 +51,23 @@ To remove extra rows above header rows, like the mailing address and logo of dat
 
 
 
+## Dealing with Columns without headers
+
+Some spreadsheets have data that is categorical, but in a wide format in the table, and without header names.
+
+example data:
+
+```hd1, hd2, hd3, __, __ , hd6, hd7
+001, 001, 001, dt4, dt5, 001, 001
+002, 002, 002, ___ , ___ , 002, 002
+003, 003, 003, dt4, dt5, 003, 003
+004, 004, 004, ___ , ___ , 004, 004
+005, 005, 005, dt4, ___ , 005, 005```
+
+
+
+
+
 
 ## Test files
 Example csv files to test code with. Code expects them in the 'tmp' folder.
