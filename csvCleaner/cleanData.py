@@ -186,6 +186,30 @@ def removeSummaryTable(rows, common_row_length):
 	return rows[:i+1]
 
 
+def removeEmptyFromList(list):
+	newlist = []
+	for l in list:
+		if l != '':
+			newlist.append(l)
+	return newlist
+
+
+def getHeaderNameFromData(rows, i):
+	# get shortest name from data in column. If no data, then this is empty column and no header needed
+	hName = ''
+
+	colData = set(getColumn(rows, i))
+	colData = removeEmptyFromList(colData)
+	colData.sort(key =len)
+
+	print 'sorted: ', colData
+
+	if len(colData) > 0:
+		hName = colData[0]
+
+	return hName
+
+
 def flattenHeaders(keepRows):
 	# This is not as robust as it can be, keeping it simple for now
 	# Assumption: first rows are likely to be headers, and when pattern becomes 'common', it's data
@@ -222,9 +246,11 @@ def flattenHeaders(keepRows):
 				# Working Here!!!
 				print ''
 				print '---need to extract header from data:'
-				print set(getColumn(keepRows, i))
+				print '   ', set(getColumn(keepRows, i))
+				 
 				pre = ''
-				post = ''
+				post = '****' + getHeaderNameFromData(keepRows,i)[:9]  # the '****' indicates header name was extracted and needs to be edited by a person
+				print 'extracted Header: ', post
 
 			new_header.append(pre + post)
 			i += 1
