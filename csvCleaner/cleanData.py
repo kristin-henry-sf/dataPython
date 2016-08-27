@@ -1,10 +1,12 @@
 import os
-import csv
+import csv, json
 import numbers
 # import pandas as pd
 from collections import Counter
 
-# adding a line here, to practice some git skills
+
+def getColumn(matrix, i):
+	return [row[i] for row in matrix]
 
 
 # This is for dealing with csv's that have forced empty cells in extra rows (non data, non header)
@@ -21,6 +23,7 @@ def nibble(row):
 		else:
 			break
 
+	# ToDo: come up with better test, this only works if rows are long. Won't work for rows with 2 or so elements.
 	#  If less than half of cells at end of row are empty, we may have data or header
 	if(empties < len(row)/2):
 		return row
@@ -63,6 +66,33 @@ def isRowEmpty(pattern):
 			return False
 	return True
 
+def isInRanges(i, ranges):
+	for r in ranges:
+		r = r.replace(',', '')
+		if '-' in r:
+			nums = r.split('-')
+			if float(i) >= float(nums[0]) and float(i) <= float(nums[1]):
+				return True
+		else:
+			if float(i) == float(r):
+				return True
+	
+	return False
+			
+
+def getLimitedRows(rows, rownums):
+	if '-' in rownums:
+		nums = rownums.split('-')
+		min = int(nums[0])
+		max = int(nums[2])
+	else:
+		min = 0
+		max = int(rownums[0])
+
+	rows = rows[min:max]
+
+	return rows
+
 
 def getRows(file_path):
 	rows = []
@@ -76,6 +106,23 @@ def getRows(file_path):
 		f.close()
 	return rows
 	
+
+def getColumns(rows, columns):
+	#ToDo: this is not efficient....look for better ways
+	newrows = []
+
+	for row in rows:
+		i = 0
+		newrow = []
+		for elem in row:
+			if isInRanges(i, columns):
+				newrow.append(elem)
+			i+=1
+
+		newrows.append(newrow)
+
+	return newrows
+
 
 def cleanUnnamed(rows):
 	row = rows[0] 	# get the first row, only one that could have 'Unnamed: # ' cells
@@ -114,34 +161,67 @@ def removeEmptyRows(old_rows):
 	for row in old_rows: 
 		pattern = getTypesPattern(row)
 		if isRowEmpty(pattern) == False:
-			# row = nibble(row)
 			rows.append(row)
 	return rows
 
 
-def getKeepRows(rows, common_row_length):
-	# Save header and data rows 
-	keepRows = []
+# ToDo: make sure we don't remove heaaders that are empty in last cells
+def removeExtraTopRows(rows, common_row_length):
+	i = 0
 	for row in rows:
+		i+=1
+		row = nibble(row)
 		if len(row) == common_row_length:
-			keepRows.append(row)
+			break
+	return rows[i-1:]
 
-	return keepRows
+
+def removeSummaryTable(rows, common_row_length):
+	i = len(rows)
+	for row in reversed(rows):
+		i-=1
+		row = nibble(row)
+		if len(row) >= common_row_length/2:
+			break
+	return rows[:i+1]
+
+
+def removeEmptyFromList(list):
+	newlist = []
+	for l in list:
+		if l != '':
+			newlist.append(l)
+	return newlist
+
+
+def getHeaderNameFromData(rows, i):
+	# get shortest name from data in column. If no data, then this is empty column and no header needed
+	hName = ''
+
+	colData = set(getColumn(rows, i))
+	colData = removeEmptyFromList(colData)
+	colData.sort(key =len)
+
+	print 'sorted: ', colData
+
+	if len(colData) > 0:
+		hName = colData[0]
+
+	return hName
 
 
 def flattenHeaders(keepRows):
 	# This is not as robust as it can be, keeping it simple for now
 	# Assumption: first rows are likely to be headers, and when pattern becomes 'common', it's data
-	# Assumption: headers will not have numbers as names --> header rows don't have int types in them
+	# Assumption: headers will not have numbers as names --> header rows don't have number types in them
 	headers = []
-	for row in keepRows[:3]:
+	for row in keepRows[:2]:
 		if 'num' not in getTypesPattern(row):
 			headers.append(row)
-	
-	# print headers
+		else:
+			break
 
 	if len(headers) > 1:
-
 		# remove the old headers 
 		keepRows = keepRows[len(headers):]
 
@@ -163,8 +243,14 @@ def flattenHeaders(keepRows):
 				pre = headers[0][i]
 				post = ''
 			if types == ('empty', 'empty'):
+				# Working Here!!!
+				print ''
+				print '---need to extract header from data:'
+				print '   ', set(getColumn(keepRows, i))
+				 
 				pre = ''
-				post = ''
+				post = '****' + getHeaderNameFromData(keepRows,i)[:9]  # the '****' indicates header name was extracted and needs to be edited by a person
+				print 'extracted Header: ', post
 
 			new_header.append(pre + post)
 			i += 1
@@ -223,21 +309,12 @@ def possibleSumsRow(row):
 def removeSumsRow(rows):
 	# assumption: have already removed any additional summary table
 	# assumption: the last row is either data, or contains sums of some columns
-
 	row_y = rows[len(rows)-2]
 	row_z = rows[len(rows)-1]
-
-	# print possibleSumsRow(row_z)
-	# print possibleSumsRow(row_y)
-
-	print row_y, getTypesPattern(row_y)
-	print row_z, getTypesPattern(row_z)
-
 
 	# ToDo make this more robust!!! Check previous rows...
 	if possibleSumsRow(row_z):
 		rows = rows[:-1]
-
 
 	return rows
 
@@ -250,45 +327,82 @@ def saveAsCSV(cleanRows, dest_folder, file_name_short):
 
 	f.close()
 
+
+def saveAsJSON(rows, dest_folder, file_name_short):
+	# this needs improvements
+	complete_name = os.path.join(dest_folder, file_name_short + '_cleaned.json')
+	data = []
+
+	headers = rows[0]
+	for row in rows[1:]:
+		d = {}
+		i =0
+		for elem in headers:
+			d[elem] = row[i]
+			i+=1
+		data.append(d)
+
+	with open(complete_name, 'w') as f:
+		json.dump(data, f)
+
+
+
 # ---------------------------------------------------------------------------------------
-def cleanFile(file_name, dest_folder):
+def cleanFile(file_name, dest_folder, skim=False, columns=[], rownums=[], json=False):
+
 	file_path = file_name
 	file_name = os.path.basename(file_name)
 	file_name_short = os.path.splitext(file_name)[0]
 
-	print file_path
 
-
-	# not sure if this is good idea....might use up memory
 	rows = getRows(file_path)
 
 	#converting an excel sheet to csv may result in empty cells of first row to be filled with 'Unnamed: #'
 	rows = cleanUnnamed(rows)
 
-	# need to remove empty columns before getting type patterns....could have lots of empty columns 
+	# could have lots of empty columns 
 	rows = removeEmptyColumns(rows)
 
+
+	# get data type patterns from data in rows
 	common_row_patterns = getRowTypePatterns(rows)
-	for row in common_row_patterns:
-		print row
-	
-	# most common length should be our data rows 
-	counts = getCommonRowLengths(rows) #Counter(row_lengths)
-	common_row_length = counts.most_common(1)[0][0]
+	counts = getCommonRowLengths(rows) 
+	common_row_length = counts.most_common(1)[0][0] #most common length should be our data rows 
+
+
+	# Only execute this if command line argument 'top' is used
+	if skim:
+		print 'skim of the top'
+
+		rows = removeExtraTopRows(rows, common_row_length)
+
 
 	rows = removeEmptyRows(rows)
 
-	keepRows = getKeepRows(rows, common_row_length)
-	keepRows = flattenHeaders(keepRows)
+	# some files have nested headers, we want just one row of header names
+	rows = flattenHeaders(rows)
 
-	# any extra tables must be already removed by now
-	cleanRows = removeSumsRow(keepRows)
-	
-	saveAsCSV(cleanRows, dest_folder, file_name_short)
+	# some files have summary tables below all the actual data 
+	rows = removeSummaryTable(rows, common_row_length)
 
-	# # this is just for testing
-	# for row in rows:
-	# 	print row
+	#any extra tables must be already removed by now
+	rows = removeSumsRow(rows)
+
+	# make sure we take all columns and rows if not indicated otherwise
+	if len(rownums) >0:
+		rows = getLimitedRows(rows, rownums)
+	if len(columns) >0:
+		rows = getColumns(rows, columns)
+
+	if json:
+		saveAsJSON(rows, dest_folder, file_name_short)
+	else:
+		saveAsCSV(rows, dest_folder, file_name_short)
+
+	#this is just for testing
+	print '-------------------------------------'
+	for row in rows:
+		print row
 #--------------------------------------------------------------------------------------------
 
 
