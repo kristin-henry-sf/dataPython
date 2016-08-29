@@ -66,21 +66,6 @@ example data:
 | 005 | 005 | 005 | dt4 | ____ | 005 | 005 |
 
 
-hd1, hd2, hd3, ____, ____, hd6, hd7
-
-001, 001, 001, dt4, dt5, 001, 001
-
-002, 002, 002, ____, ____, 002, 002
-
-003, 003, 003, dt4, dt5, 003, 003
-
-004, 004, 004, ____, ____, 004, 004
-
-005, 005, 005, dt4, ____, 005, 005
-
-
-
-
 
 In many examples, the data in the column is repetative and can be extracted as the name for that column.
 
@@ -128,3 +113,4 @@ Cleaned/processed files are saved in 'cleaned' folder.
 * pay attention to XML vulnerabilities and Excel files: http://xlrd.readthedocs.io/en/latest/vulnerabilities.html
 
 
+#  
