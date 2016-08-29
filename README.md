@@ -81,7 +81,7 @@ While the data in the column may be repetative, it might not be input in exactly
 When giving a column an extracted header name, currently prepending it with "****" 
 * so that it's easy to see which headers are extracted in the cleaned csv. Making it easier to go in and modify 'by hand' or with eventual UI for doing this task.
 
-Headerless columns, with only numerical data, are not yet addressed.
+Headerless columns, with only numerical data, are named 'num' + the index of the column. 
 
 
 

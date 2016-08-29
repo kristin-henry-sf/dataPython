@@ -60,6 +60,12 @@ def getTypesPattern(row):
 	return rowTypes
 
 
+def isColNumerical(col):
+	for elem in col:
+		if getType(elem) != 'num':
+			return False
+	return True 
+
 def isRowEmpty(pattern):
 	for elem in pattern:
 		if elem != 'empty':
@@ -202,11 +208,13 @@ def getHeaderNameFromData(rows, i):
 	colData = removeEmptyFromList(colData)
 	colData.sort(key =len)
 
-	print 'sorted: ', colData
-
 	if len(colData) > 0:
+
 		hName = colData[0]
 
+		if isColNumerical(colData):
+			hName = 'num' + str(i)
+		
 	return hName
 
 
@@ -243,14 +251,10 @@ def flattenHeaders(keepRows):
 				pre = headers[0][i]
 				post = ''
 			if types == ('empty', 'empty'):
-				# Working Here!!!
-				print ''
-				print '---need to extract header from data:'
-				print '   ', set(getColumn(keepRows, i))
-				 
+							 
 				pre = ''
 				post = '****' + getHeaderNameFromData(keepRows,i)[:9]  # the '****' indicates header name was extracted and needs to be edited by a person
-				print 'extracted Header: ', post
+				# print 'extracted Header: ', post
 
 			new_header.append(pre + post)
 			i += 1
