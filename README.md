@@ -54,7 +54,7 @@ To remove extra rows above header rows, like the mailing address and logo of dat
 
 ```python hello.py -json2```
 * two levels
-* second heaader row is used as subheader
+* second header row is used as subheader
 * ToDo: extract subheader from data when there is an empty subheader
 * still working on this
 
