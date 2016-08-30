@@ -60,7 +60,7 @@ To remove extra rows above header rows, like the mailing address and logo of dat
 
 | hd1   | _____ | _____ | hd2   |
 | ----- | ----- | ----- | ----- |
-| hd1.a | hd1.b | hd1.c | hd2.a |
+| **hd1.a** | hd1.b | hd1.c | hd2.a |
 | ----- | ----- | ----- | ----- |
 | 001   | 001   | 001   | 001   |
 | 002   | 002   | 002   | 002   |
@@ -136,4 +136,3 @@ Cleaned/processed files are saved in 'cleaned' folder.
 * packages for working with Excel files: http://www.python-excel.org/
 * pay attention to XML vulnerabilities and Excel files: http://xlrd.readthedocs.io/en/latest/vulnerabilities.html
 
-#
