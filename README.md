@@ -50,6 +50,27 @@ To remove extra rows above header rows, like the mailing address and logo of dat
 * still working on this...
 
 
+### export in nested json format
+
+```python hello.py -json2```
+* two levels
+* second heaader row is used as subheader
+* ToDo: extract subheader from data when there is an empty subheader
+
+| hd1   | _____ | _____ | hd2   |
+| hd1.a | hd1.b | hd1.c | hd2.a |
+| ----- | ----- | ----- | ----- |
+| 001   | 001   | 001   | 001   |
+
+would be rendered as 
+
+{
+	hd1: { hd1.a: 001, hd1.b: 001, hd1.b: 001},
+ 	hd2: { hd2.a: 001}
+}
+
+
+
 
 ## Dealing with Columns without headers
 
@@ -112,5 +133,3 @@ Cleaned/processed files are saved in 'cleaned' folder.
 * packages for working with Excel files: http://www.python-excel.org/
 * pay attention to XML vulnerabilities and Excel files: http://xlrd.readthedocs.io/en/latest/vulnerabilities.html
 
-
-#  

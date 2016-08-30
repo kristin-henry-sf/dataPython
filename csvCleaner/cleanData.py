@@ -350,9 +350,42 @@ def saveAsJSON(rows, dest_folder, file_name_short):
 		json.dump(data, f)
 
 
+def saveAsJSON_2(rows, dest_folder, file_name_short):
+	# Assumption: second header row is nested under the first. Not always a safe assumption, may need user intervention.
+
+	print "saving as nested json, without flattening headers"
+
+	# this needs improvements
+	complete_name = os.path.join(dest_folder, file_name_short + '_cleaned.json')
+	data = []
+
+	subheaders = rows[1] # get second row of headers
+
+	for row in rows[2:]:
+		d = {}
+		i =0
+		parent = None
+		for elem in row:
+
+			if rows[0][i] != '':
+				parent = rows[0][i]
+				d[parent] = {}
+				#ToDo: if subheader is empty, extract header from column data---should do this before looping through rows
+
+			d[parent][subheaders[i]] = row[i]
+			i+=1
+		
+		data.append(d)
+
+	# print data
+
+	with open(complete_name, 'w') as f:
+		json.dump(data, f)
+
+
 
 # ---------------------------------------------------------------------------------------
-def cleanFile(file_name, dest_folder, skim=False, columns=[], rownums=[], json=False):
+def cleanFile(file_name, dest_folder, skim=False, columns=[], rownums=[], json=False, json2=False):
 
 	file_path = file_name
 	file_name = os.path.basename(file_name)
@@ -383,8 +416,9 @@ def cleanFile(file_name, dest_folder, skim=False, columns=[], rownums=[], json=F
 
 	rows = removeEmptyRows(rows)
 
-	# some files have nested headers, we want just one row of header names
-	rows = flattenHeaders(rows)
+	if not json2:
+		# some files have nested headers, we want just one row of header names
+		rows = flattenHeaders(rows)
 
 	# some files have summary tables below all the actual data 
 	rows = removeSummaryTable(rows, common_row_length)
@@ -400,13 +434,15 @@ def cleanFile(file_name, dest_folder, skim=False, columns=[], rownums=[], json=F
 
 	if json:
 		saveAsJSON(rows, dest_folder, file_name_short)
+	elif json2:
+		saveAsJSON_2(rows, dest_folder, file_name_short)
 	else:
 		saveAsCSV(rows, dest_folder, file_name_short)
 
 	#this is just for testing
-	print '-------------------------------------'
-	for row in rows:
-		print row
+	# print '-------------------------------------'
+	# for row in rows:
+	# 	print row
 #--------------------------------------------------------------------------------------------
 
 

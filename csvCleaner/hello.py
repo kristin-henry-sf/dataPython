@@ -14,9 +14,9 @@ ALLOWED_EXTENSIONS = set(['csv'])
 # filename = './tmp/dummyData3.csv'
 # filename = './tmp/dummyData2.xlsx'
 # filename = './tmp/STEMtest_1.csv'
-# filename = './tmp/STEMtest_sparse_1.csv'
+filename = './tmp/STEMtest_sparse_1.csv'
 # filename = './tmp/STEMtest_sparse_2.csv'
-filename = './tmp/STEMtest_sparse_3.csv'
+# filename = './tmp/STEMtest_sparse_3.csv'
 # filename = './tmp/STEMtest_full.csv'
 # filename = './tmp/2010 Federal STEM Education Inventory Data Set.xls'
 # filename = './tmp/Mobile_Food_Schedule.csv'
@@ -59,7 +59,8 @@ for arg in sys.argv:
 
 
 
-cleanFile(csv_path, CLEANED_FOLDER, skim='-skim' in sys.argv, columns = cols, rownums = rows, json = '-json' in sys.argv)
+cleanFile(csv_path, CLEANED_FOLDER, skim='-skim' in sys.argv, columns = cols, rownums = rows, 
+									json = '-json' in sys.argv, json2 = '-json2' in sys.argv)
  
 
 
