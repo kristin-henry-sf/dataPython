@@ -67,11 +67,12 @@ To remove extra rows above header rows, like the mailing address and logo of dat
 
 would be rendered as 
 
+```
 {
 	hd1: { hd1.a: 001, hd1.b: 001, hd1.b: 001},
  	hd2: { hd2.a: 001}
 }
-
+```
 
 
 
