@@ -74,7 +74,10 @@ def isRowEmpty(pattern):
 	return True
 
 def isInRanges(i, ranges):
+	# originally written to compare value to commandline args, which are passed as strings
+	
 	for r in ranges:
+		r = str(r) # this is for testing, and using,  outside of command line
 		r = r.replace(',', '')
 		if '-' in r:
 			nums = r.split('-')
@@ -83,6 +86,7 @@ def isInRanges(i, ranges):
 		else:
 			if float(i) == float(r):
 				return True
+	
 	
 	return False
 			

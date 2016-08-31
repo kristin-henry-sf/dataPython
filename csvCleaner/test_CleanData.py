@@ -1,13 +1,33 @@
 import unittest
-from cleanData import getType, getTypesPattern
+# from cleanData import getColumn, nibble, getType, getTypesPattern, isColNumerical, isRowEmpty, isInRanges
+from cleanData import *
 
 
 
 
 class CleaningTestCase(unittest.TestCase):
-	# Tests for things
+	
+	def test_getColumn(self):
+		# getColumn(matric, i)
+
+		matrix = [[1,2,3,4],
+				 [11,22,33,44],
+				 [111, 222, 333, 444]]
+
+		i = 1
+		col = [2, 22, 222]
+
+		self.assertEqual(getColumn(matrix, i), col)
+
+
+
+	def test_nibble(self):
+		# nibble(row)
+		print 'ToDo: write test for nibble(row)'
+
 
 	def test_getType(self):
+		# getType(elem)
 
 		nums = [5, 5.5, -5, '5']
 
@@ -22,7 +42,7 @@ class CleaningTestCase(unittest.TestCase):
 
 
 	def test_getTypesPattern(self):
-		#getTypesPattern(row)
+		# getTypesPattern(row)
 
 		row = ['one', 'two', 3,'' ,'five', 6.6]
 		row_types = ['str', 'str', 'num', 'empty', 'str', 'num']
@@ -41,43 +61,87 @@ class CleaningTestCase(unittest.TestCase):
 		self.assertNotEqual(getTypesPattern(row), row_types)
 
 
-	def test_getColumn(self):
-		#testing getColumn(matrix, i)
-		pass
-
-
-	def test_nibble(self):
-		# testing nibble(row)
-		pass
-
+	
 
 	def test_isColNumerical(self):
-		#testing isColNumerical(col)
-		pass
+		# isColNumerical(col)
+
+		col = [1,2,3,4]
+		self.assertEqual(isColNumerical(col), True)
+
+		col = [1.2, 2, 3, 4]
+		self.assertEqual(isColNumerical(col), True)
+
+		col = ['one', 2, 3, 'four']
+		self.assertNotEqual(isColNumerical(col), True)
+
+		
 
 	def test_isRowEmpty(self):
-		#testing isRowEmpty(pattern)
-		pass
+		# isRowEmpty(pattern)
+		
+		pattern = ['empty', 'empty']
+		self.assertEqual(isRowEmpty(pattern), True)
+
+		pattern = ['empty', 'empty', 'str']
+		self.assertNotEqual(isRowEmpty(pattern), True)
+
 
 	def test_isInRanges(self):
-		#tesst isInRanges(i, ranges)
-		pass
+		#  isInRanges(i, ranges)
+		i = 1
+
+		ranges = [1]
+		self.assertEqual(isInRanges(i, ranges), True)
+
+		ranges = [1,2]
+		self.assertEqual(isInRanges(i, ranges), True)
+
+		ranges = ['0-3']
+		self.assertEqual(isInRanges(i, ranges), True)
+
+		ranges = ['0-3', 5]
+		self.assertEqual(isInRanges(i, ranges), True)
+
+		i = 99
+		ranges = ['0-3', 5]
+		self.assertNotEqual(isInRanges(i, ranges), True)
+
+		i = -1
+		ranges = ['0-3']
+		self.assertNotEqual(isInRanges(i, ranges), True)
+
+
 
 	def test_getLimitedRows(self):
-		#testing getLimitedRows(rows, rownums)
-		pass
+		# getLimitedRows(rows, rownums)
+		
+		print 'ToDo: write test for getLimitedRowws(rows, rownums)'
 
 	def test_getRows(self):
-		#testing getRows(file_path)
-		pass
+		# getRows(file_path)
+		print 'ToDo: write test for getRows(file_path)'
 
 
 	def test_getColumns(self):
-		#testing getColumns(rows, columns)
-		pass
+		# getColumns(rows, columns)
+		print 'ToDo: write *more* tests for getColumns(rows, columns)'
+		
+		rows = [[1,2,3,4],
+				[11,22,33,44],
+				[111, 222, 333, 444]]
+
+		columns = [1]
+		new_rows = [[2],
+					[22],
+					[222]]
+
+		self.assertEqual(getColumns(rows, columns), new_rows)
+
+
 	
 	def test_cleanUnnamed(self):
-		#testing cleanUnnamed(rows)
+		# cleanUnnamed(rows)
 		pass
 
 
