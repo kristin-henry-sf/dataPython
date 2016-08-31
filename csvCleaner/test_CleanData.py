@@ -287,7 +287,11 @@ class CleaningTestCase(unittest.TestCase):
 
 	def test_possibleSumsRow(self):
 		# possibleSumsRow(row)
-		pass
+		row = ['one', 'two', 'three', 'four']
+		self.assertEqual(possibleSumsRow(row), False)
+
+		row = [1,2, '', '', '', 3]
+		self.assertEqual(possibleSumsRow(row), True)
 
 	def  test_removeSumsRow(self):
 		# removeSumsRow(rows)
