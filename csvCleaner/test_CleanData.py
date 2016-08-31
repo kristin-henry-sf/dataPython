@@ -261,7 +261,28 @@ class CleaningTestCase(unittest.TestCase):
 
 	def test_removeEmptyColumns(self):
 		# removeEmptyColumns(keepRows)
-		pass
+		rows = [['one', 'two', 'three', 'four', '', 'six'],
+				[11,22,33,44,' ' , 66],
+				[111, 222, 333, 444,' ' , 666]]
+
+		new_rows = [['one', 'two', 'three', 'four', 'six'],
+				[11,22,33,44, 66],
+				[111, 222, 333, 444, 666]]
+
+		self.assertEqual(removeEmptyColumns(rows), new_rows)
+
+
+
+		rows = [['one', 'two', 'three', ' ', 'five', 'six'],
+				[11,22,33,44,' ' , 66],
+				[111, 222, 333, 444,' ' , 666]]
+
+		new_rows = [['one', 'two', 'three', 'five', 'six'],
+				[11,22,33,44, 66],
+				[111, 222, 333, 444, 666]]
+
+		self.assertNotEqual(removeEmptyColumns(rows), new_rows)
+
 
 
 	def test_possibleSumsRow(self):
