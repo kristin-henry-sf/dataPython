@@ -242,14 +242,16 @@ class CleaningTestCase(unittest.TestCase):
 
 	def test_getHeaderNameFromData(self):
 		# getHeaderNameFromData(rows, i)
-		rows = [['one', 'two', 'three', '', 'five', 'six'],
-				[11, 22, 33, 'four', 55, 66],
-				[11, 22, 33, 'four', 55, 66],
-				[111, 222, 333, '444', 555, 666]]
+		# rows = [['one', 'two', 'three', '', 'five', 'six'],
+		# 		[11, 22, 33, 'four', 55, 66],
+		# 		[11, 22, 33, 'four', 55, 66],
+		# 		[111, 222, 333, '444', 555, 666]]
 
-		print 'new headername: ', getHeaderNameFromData(rows, 3)
+		# print 'new headername: ', getHeaderNameFromData(rows, 3)
 
-		print 'testing'
+		# self.assertEqual(getHeaderNameFromData(rows, 3), 'four')
+
+		print '***Working Here*** on getHeaderNameFromData, need to make this function much more thorough'
 
 
 	def test_flattenHeaders(self):
