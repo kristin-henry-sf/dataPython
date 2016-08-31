@@ -48,6 +48,7 @@ def getType(elem):
 		float(elem)
 		return 'num'
 	except ValueError:
+		elem = elem.strip()
 		if elem == '':
 			return 'empty'
 	return 'str'
