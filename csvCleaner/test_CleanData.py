@@ -1,11 +1,28 @@
 import unittest
-from cleanData import getType, getTypesPattern
+from cleanData import getColumn, nibble, getType, getTypesPattern
 
 
 
 
 class CleaningTestCase(unittest.TestCase):
-	# Tests for things
+	
+	def test_getColumn(self):
+
+		matrix = [[1,2,3,4],
+				 [11,22,33,44],
+				 [111, 222, 333, 444]]
+
+		i = 1
+		col = [2, 22, 222]
+
+		self.assertEqual(getColumn(matrix, i), col)
+
+
+
+	def test_nibble(self):
+		# testing nibble(row)
+		pass
+
 
 	def test_getType(self):
 
@@ -41,15 +58,7 @@ class CleaningTestCase(unittest.TestCase):
 		self.assertNotEqual(getTypesPattern(row), row_types)
 
 
-	def test_getColumn(self):
-		#testing getColumn(matrix, i)
-		pass
-
-
-	def test_nibble(self):
-		# testing nibble(row)
-		pass
-
+	
 
 	def test_isColNumerical(self):
 		#testing isColNumerical(col)
