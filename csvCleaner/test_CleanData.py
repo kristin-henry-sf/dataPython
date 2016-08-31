@@ -295,7 +295,20 @@ class CleaningTestCase(unittest.TestCase):
 
 	def  test_removeSumsRow(self):
 		# removeSumsRow(rows)
-		pass
+		rows = [['one', 'two', 'three', 'four', 'five'],
+				[1, 2, 3, 4, 5,],
+				[11, 22, 33, 44, 55],
+				[111, 222, 333, 444, 555],
+				['', '', 3333, '', 5555]]
+
+		new_rows = [['one', 'two', 'three', 'four', 'five'],
+				[1, 2, 3, 4, 5,],
+				[11, 22, 33, 44, 55],
+				[111, 222, 333, 444, 555]]
+
+		self.assertEqual(removeSumsRow(rows), new_rows)
+
+		
 
 	def test_saveAsCSV(self):
 		# def saveAsCSV(cleanRows, dest_folder, file_name_short)
