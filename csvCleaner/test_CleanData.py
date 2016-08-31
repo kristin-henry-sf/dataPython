@@ -142,59 +142,173 @@ class CleaningTestCase(unittest.TestCase):
 	
 	def test_cleanUnnamed(self):
 		# cleanUnnamed(rows)
-		pass
+		
+		rows = [['one', 'two', 'Unnamed_1'],
+				[1,2,3]]
 
+		new_rows =[['one', 'two', ''],
+				[1,2,3]]
+
+		self.assertEqual(cleanUnnamed(rows), new_rows)
 
 
 	def test_getRowTypePatterns(self):
 		# getRowTypePatterns(rows)
-		pass
+		# getting most common patterns, in order of frequency, with most frequent first
+		print 'ToDo: write more tests for getRowTypePatterns(rows)'
+		
+		rows = [[1, 2, 'three', ''],
+				[11,22,33,44],
+				[111, 222, 333, 444]]
+		patterns = [(('num', 'num', 'num', 'num'), 2),
+					(('num', 'num', 'str', 'empty'), 1)]
+
+		self.assertEqual(getRowTypePatterns(rows), patterns)
+
 
 	def test_getCommonRowLengths(self):
 		# getCommonRowLengths(rows)
-		pass
+		rows = [[1, 2, 'three', ''],
+				[11,22,33,44],
+				[111, 222, 333, 444]]
+		lengths = {4: 3}
+
+		self.assertEqual(getCommonRowLengths(rows), lengths)
+
+
+		rows = [[1, 2, 'three'],
+				[11,22,33,44],
+				[111, 222, 333, 444]]
+		lengths = {4: 2, 3: 1}
+
+		self.assertEqual(getCommonRowLengths(rows), lengths)
+
+
 
 	def test_removeEmptyRows(self):
 		# removeEmptyRows(rows)
-		pass
+		rows = [[1, 2, 'three'],
+				[11,22,33,44],
+				['','','',''],
+				[111, 222, 333, 444]]
+
+		new_rows = rows = [[1, 2, 'three'],
+				[11,22,33,44],
+				[111, 222, 333, 444]]
+
+
+		self.assertEqual(removeEmptyRows(rows), new_rows)
+
+
 
 	def test_removeExtraTopRows(self):
 		# removeExtraTopRows(rows, common_row_length)
-		pass
+		rows = [['extra'],
+				['one', 'two', 'three', 'four', 'five', 'six'],
+				[11,22,33,44, 55, 66],
+				[111, 222, 333, 444, 555, 666]]
+
+		common_row_length = 6		
+
+		new_rows = rows = [['one', 'two', 'three', 'four', 'five', 'six'],
+				[11,22,33,44, 55, 66],
+				[111, 222, 333, 444, 555, 666]]
+
+		self.assertEqual(removeExtraTopRows(rows, common_row_length), new_rows)
+
+
+		lengths = getCommonRowLengths(rows)
+		common_row_length = lengths.most_common(1)[0][0]
+
+		self.assertEqual(removeExtraTopRows(rows, common_row_length), new_rows)
+
 
 
 	def test_removeSummaryTable(self):
 		#removeSummaryTable(rows, common_row_length)
-		pass
+		print "ToDo: write test for removeSummaryTable(rows, common_row_length)"
 
 
 	def test_removeEmptyFromList(self):
 		# removeEmptyFromList(list)
-		pass
+		list = ['one', 'two', '', 'four']
+		new_list = list = ['one', 'two', 'four']
+
+		self.assertEqual(removeEmptyFromList(list), new_list)
+		self.assertEqual(len(removeEmptyFromList(list)), len(new_list))
+
+
 
 
 	def test_getHeaderNameFromData(self):
 		# getHeaderNameFromData(rows, i)
-		pass
+		# rows = [['one', 'two', 'three', '', 'five', 'six'],
+		# 		[11, 22, 33, 'four', 55, 66],
+		# 		[11, 22, 33, 'four', 55, 66],
+		# 		[111, 222, 333, '444', 555, 666]]
+
+		# print 'new headername: ', getHeaderNameFromData(rows, 3)
+
+		# self.assertEqual(getHeaderNameFromData(rows, 3), 'four')
+
+		print '***Working Here*** on getHeaderNameFromData, need to make this function much more thorough'
 
 
 	def test_flattenHeaders(self):
 		# flattenHeaders(keepRows)
-		pass
+		print 'ToDo: write test for flattenHeaders(rows)'
 
 
 	def test_removeEmptyColumns(self):
 		# removeEmptyColumns(keepRows)
-		pass
+		rows = [['one', 'two', 'three', 'four', '', 'six'],
+				[11,22,33,44,' ' , 66],
+				[111, 222, 333, 444,' ' , 666]]
+
+		new_rows = [['one', 'two', 'three', 'four', 'six'],
+				[11,22,33,44, 66],
+				[111, 222, 333, 444, 666]]
+
+		self.assertEqual(removeEmptyColumns(rows), new_rows)
+
+
+
+		rows = [['one', 'two', 'three', ' ', 'five', 'six'],
+				[11,22,33,44,' ' , 66],
+				[111, 222, 333, 444,' ' , 666]]
+
+		new_rows = [['one', 'two', 'three', 'five', 'six'],
+				[11,22,33,44, 66],
+				[111, 222, 333, 444, 666]]
+
+		self.assertNotEqual(removeEmptyColumns(rows), new_rows)
+
 
 
 	def test_possibleSumsRow(self):
 		# possibleSumsRow(row)
-		pass
+		row = ['one', 'two', 'three', 'four']
+		self.assertEqual(possibleSumsRow(row), False)
+
+		row = [1,2, '', '', '', 3]
+		self.assertEqual(possibleSumsRow(row), True)
 
 	def  test_removeSumsRow(self):
 		# removeSumsRow(rows)
-		pass
+		rows = [['one', 'two', 'three', 'four', 'five'],
+				[1, 2, 3, 4, 5,],
+				[11, 22, 33, 44, 55],
+				[111, 222, 333, 444, 555],
+				['', '', 3333, '', 5555]]
+
+		new_rows = [['one', 'two', 'three', 'four', 'five'],
+				[1, 2, 3, 4, 5,],
+				[11, 22, 33, 44, 55],
+				[111, 222, 333, 444, 555]]
+
+		self.assertEqual(removeSumsRow(rows), new_rows)
+
+		
 
 	def test_saveAsCSV(self):
 		# def saveAsCSV(cleanRows, dest_folder, file_name_short)
