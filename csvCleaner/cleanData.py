@@ -210,16 +210,17 @@ def getHeaderNameFromData(rows, i):
 	hName = ''
 
 	colData = set(getColumn(rows, i))
-	colData = removeEmptyFromList(colData)
-	colData.sort(key =len)
+	colData = removeEmptyFromList(colData) 
 
 	if len(colData) > 0:
 
-		hName = colData[0]
-
 		if isColNumerical(colData):
 			hName = 'num' + str(i)
-		
+		else:
+			colData.sort(key =len)
+			print colData
+			hName = colData[0]
+	
 	return hName
 
 

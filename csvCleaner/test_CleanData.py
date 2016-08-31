@@ -242,7 +242,14 @@ class CleaningTestCase(unittest.TestCase):
 
 	def test_getHeaderNameFromData(self):
 		# getHeaderNameFromData(rows, i)
-		pass
+		rows = [['one', 'two', 'three', '', 'five', 'six'],
+				[11, 22, 33, 'four', 55, 66],
+				[11, 22, 33, 'four', 55, 66],
+				[111, 222, 333, '444', 555, 666]]
+
+		print 'new headername: ', getHeaderNameFromData(rows, 3)
+
+		print 'testing'
 
 
 	def test_flattenHeaders(self):
