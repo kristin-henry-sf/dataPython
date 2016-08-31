@@ -154,7 +154,16 @@ class CleaningTestCase(unittest.TestCase):
 
 	def test_getRowTypePatterns(self):
 		# getRowTypePatterns(rows)
-		pass
+		# getting most common patterns, in order of frequency, with most frequent first
+		
+		rows = [[1, 2, 'three', ''],
+				[11,22,33,44],
+				[111, 222, 333, 444]]
+		patterns = [(('num', 'num', 'num', 'num'), 2),
+					(('num', 'num', 'str', 'empty'), 1)]
+
+		self.assertEqual(getRowTypePatterns(rows), patterns)
+
 
 	def test_getCommonRowLengths(self):
 		# getCommonRowLengths(rows)
