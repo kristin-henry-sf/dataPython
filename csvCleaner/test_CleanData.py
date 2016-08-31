@@ -231,7 +231,13 @@ class CleaningTestCase(unittest.TestCase):
 
 	def test_removeEmptyFromList(self):
 		# removeEmptyFromList(list)
-		pass
+		list = ['one', 'two', '', 'four']
+		new_list = list = ['one', 'two', 'four']
+
+		self.assertEqual(removeEmptyFromList(list), new_list)
+		self.assertEqual(len(removeEmptyFromList(list)), len(new_list))
+
+
 
 
 	def test_getHeaderNameFromData(self):
