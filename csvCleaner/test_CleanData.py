@@ -256,7 +256,7 @@ class CleaningTestCase(unittest.TestCase):
 
 	def test_flattenHeaders(self):
 		# flattenHeaders(keepRows)
-		pass
+		print 'ToDo: write test for flattenHeaders(rows)'
 
 
 	def test_removeEmptyColumns(self):
