@@ -1,5 +1,5 @@
 import unittest
-from cleanData import getColumn, nibble, getType, getTypesPattern, isColNumerical
+from cleanData import getColumn, nibble, getType, getTypesPattern, isColNumerical, isRowEmpty
 
 
 
@@ -75,7 +75,13 @@ class CleaningTestCase(unittest.TestCase):
 
 	def test_isRowEmpty(self):
 		#testing isRowEmpty(pattern)
-		pass
+		
+		pattern = ['empty', 'empty']
+		self.assertEqual(isRowEmpty(pattern), True)
+
+		pattern = ['empty', 'empty', 'str']
+		self.assertNotEqual(isRowEmpty(pattern), True)
+
 
 	def test_isInRanges(self):
 		#tesst isInRanges(i, ranges)
