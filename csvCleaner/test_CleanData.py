@@ -23,7 +23,7 @@ class CleaningTestCase(unittest.TestCase):
 
 	def test_nibble(self):
 		# nibble(row)
-		print 'write test for nibble(row)'
+		print 'ToDo: write test for nibble(row)'
 
 
 	def test_getType(self):
@@ -115,16 +115,30 @@ class CleaningTestCase(unittest.TestCase):
 
 	def test_getLimitedRows(self):
 		# getLimitedRows(rows, rownums)
-		pass
+		
+		print 'ToDo: write test for getLimitedRowws(rows, rownums)'
 
 	def test_getRows(self):
 		# getRows(file_path)
-		pass
+		print 'ToDo: write test for getRows(file_path)'
 
 
 	def test_getColumns(self):
 		# getColumns(rows, columns)
-		pass
+		# ToDo: write more testsfor this function
+		
+		rows = [[1,2,3,4],
+				[11,22,33,44],
+				[111, 222, 333, 444]]
+
+		columns = [1]
+		new_rows = [[2],
+					[22],
+					[222]]
+
+		self.assertEqual(getColumns(rows, columns), new_rows)
+
+
 	
 	def test_cleanUnnamed(self):
 		# cleanUnnamed(rows)
