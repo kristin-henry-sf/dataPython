@@ -1,5 +1,6 @@
 import unittest
-from cleanData import getColumn, nibble, getType, getTypesPattern, isColNumerical, isRowEmpty
+# from cleanData import getColumn, nibble, getType, getTypesPattern, isColNumerical, isRowEmpty, isInRanges
+from cleanData import *
 
 
 
@@ -7,6 +8,7 @@ from cleanData import getColumn, nibble, getType, getTypesPattern, isColNumerica
 class CleaningTestCase(unittest.TestCase):
 	
 	def test_getColumn(self):
+		# getColumn(matric, i)
 
 		matrix = [[1,2,3,4],
 				 [11,22,33,44],
@@ -20,11 +22,12 @@ class CleaningTestCase(unittest.TestCase):
 
 
 	def test_nibble(self):
-		# testing nibble(row)
+		# nibble(row)
 		print 'write test for nibble(row)'
 
 
 	def test_getType(self):
+		# getType(elem)
 
 		nums = [5, 5.5, -5, '5']
 
@@ -39,7 +42,7 @@ class CleaningTestCase(unittest.TestCase):
 
 
 	def test_getTypesPattern(self):
-		#getTypesPattern(row)
+		# getTypesPattern(row)
 
 		row = ['one', 'two', 3,'' ,'five', 6.6]
 		row_types = ['str', 'str', 'num', 'empty', 'str', 'num']
@@ -61,6 +64,7 @@ class CleaningTestCase(unittest.TestCase):
 	
 
 	def test_isColNumerical(self):
+		# isColNumerical(col)
 
 		col = [1,2,3,4]
 		self.assertEqual(isColNumerical(col), True)
@@ -74,7 +78,7 @@ class CleaningTestCase(unittest.TestCase):
 		
 
 	def test_isRowEmpty(self):
-		#testing isRowEmpty(pattern)
+		# isRowEmpty(pattern)
 		
 		pattern = ['empty', 'empty']
 		self.assertEqual(isRowEmpty(pattern), True)
@@ -84,24 +88,46 @@ class CleaningTestCase(unittest.TestCase):
 
 
 	def test_isInRanges(self):
-		#tesst isInRanges(i, ranges)
-		pass
+		#  isInRanges(i, ranges)
+		i = 1
+
+		ranges = [1]
+		self.assertEqual(isInRanges(i, ranges), True)
+
+		ranges = [1,2]
+		self.assertEqual(isInRanges(i, ranges), True)
+
+		ranges = ['0-3']
+		self.assertEqual(isInRanges(i, ranges), True)
+
+		ranges = ['0-3', 5]
+		self.assertEqual(isInRanges(i, ranges), True)
+
+		i = 99
+		ranges = ['0-3', 5]
+		self.assertNotEqual(isInRanges(i, ranges), True)
+
+		i = -1
+		ranges = ['0-3']
+		self.assertNotEqual(isInRanges(i, ranges), True)
+
+
 
 	def test_getLimitedRows(self):
-		#testing getLimitedRows(rows, rownums)
+		# getLimitedRows(rows, rownums)
 		pass
 
 	def test_getRows(self):
-		#testing getRows(file_path)
+		# getRows(file_path)
 		pass
 
 
 	def test_getColumns(self):
-		#testing getColumns(rows, columns)
+		# getColumns(rows, columns)
 		pass
 	
 	def test_cleanUnnamed(self):
-		#testing cleanUnnamed(rows)
+		# cleanUnnamed(rows)
 		pass
 
 
