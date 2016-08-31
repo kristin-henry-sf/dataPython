@@ -203,8 +203,24 @@ class CleaningTestCase(unittest.TestCase):
 
 	def test_removeExtraTopRows(self):
 		# removeExtraTopRows(rows, common_row_length)
-		pass
+		rows = [['extra'],
+				['one', 'two', 'three', 'four', 'five', 'six'],
+				[11,22,33,44, 55, 66],
+				[111, 222, 333, 444, 555, 666]]
 
+		common_row_length = 6		
+
+		new_rows = rows = [['one', 'two', 'three', 'four', 'five', 'six'],
+				[11,22,33,44, 55, 66],
+				[111, 222, 333, 444, 555, 666]]
+
+		self.assertEqual(removeExtraTopRows(rows, common_row_length), new_rows)
+
+
+		lengths = getCommonRowLengths(rows)
+		common_row_length = lengths.most_common(1)[0][0]
+
+		self.assertEqual(removeExtraTopRows(rows, common_row_length), new_rows)
 
 
 
