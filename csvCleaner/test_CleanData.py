@@ -1,5 +1,5 @@
 import unittest
-from cleanData import getColumn, nibble, getType, getTypesPattern
+from cleanData import getColumn, nibble, getType, getTypesPattern, isColNumerical
 
 
 
@@ -21,7 +21,7 @@ class CleaningTestCase(unittest.TestCase):
 
 	def test_nibble(self):
 		# testing nibble(row)
-		pass
+		print 'write test for nibble(row)'
 
 
 	def test_getType(self):
@@ -61,8 +61,17 @@ class CleaningTestCase(unittest.TestCase):
 	
 
 	def test_isColNumerical(self):
-		#testing isColNumerical(col)
-		pass
+
+		col = [1,2,3,4]
+		self.assertEqual(isColNumerical(col), True)
+
+		col = [1.2, 2, 3, 4]
+		self.assertEqual(isColNumerical(col), True)
+
+		col = ['one', 2, 3, 'four']
+		self.assertNotEqual(isColNumerical(col), True)
+
+		
 
 	def test_isRowEmpty(self):
 		#testing isRowEmpty(pattern)
