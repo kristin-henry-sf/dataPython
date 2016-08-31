@@ -142,8 +142,14 @@ class CleaningTestCase(unittest.TestCase):
 	
 	def test_cleanUnnamed(self):
 		# cleanUnnamed(rows)
-		pass
+		
+		rows = [['one', 'two', 'Unnamed_1'],
+				[1,2,3]]
 
+		new_rows =[['one', 'two', ''],
+				[1,2,3]]
+
+		self.assertEqual(cleanUnnamed(rows), new_rows)
 
 
 	def test_getRowTypePatterns(self):
