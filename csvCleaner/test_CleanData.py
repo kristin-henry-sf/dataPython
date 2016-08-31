@@ -226,7 +226,7 @@ class CleaningTestCase(unittest.TestCase):
 
 	def test_removeSummaryTable(self):
 		#removeSummaryTable(rows, common_row_length)
-		pass
+		print "ToDo: write test for removeSummaryTable(rows, common_row_length)"
 
 
 	def test_removeEmptyFromList(self):
