@@ -184,13 +184,28 @@ class CleaningTestCase(unittest.TestCase):
 		self.assertEqual(getCommonRowLengths(rows), lengths)
 
 
+
 	def test_removeEmptyRows(self):
 		# removeEmptyRows(rows)
-		pass
+		rows = [[1, 2, 'three'],
+				[11,22,33,44],
+				['','','',''],
+				[111, 222, 333, 444]]
+
+		new_rows = rows = [[1, 2, 'three'],
+				[11,22,33,44],
+				[111, 222, 333, 444]]
+
+
+		self.assertEqual(removeEmptyRows(rows), new_rows)
+
+
 
 	def test_removeExtraTopRows(self):
 		# removeExtraTopRows(rows, common_row_length)
 		pass
+
+
 
 
 	def test_removeSummaryTable(self):
