@@ -108,7 +108,10 @@ When giving a column an extracted header name, currently prepending it with "***
 Headerless columns, with only numerical data, are named 'num' + the index of the column. 
 
 
+# Testing
+## Unit Testing
 
+Unit tests are currently in development.
 
 
 ## Test files
