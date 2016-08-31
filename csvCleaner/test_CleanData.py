@@ -125,7 +125,7 @@ class CleaningTestCase(unittest.TestCase):
 
 	def test_getColumns(self):
 		# getColumns(rows, columns)
-		# ToDo: write more testsfor this function
+		print 'ToDo: write *more* tests for getColumns(rows, columns)'
 		
 		rows = [[1,2,3,4],
 				[11,22,33,44],
