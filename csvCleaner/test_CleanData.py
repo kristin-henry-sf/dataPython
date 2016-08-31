@@ -7,7 +7,7 @@ from cleanData import getType, getTypesPattern
 class CleaningTestCase(unittest.TestCase):
 	# Tests for things
 
-	def test_get_type(self):
+	def test_getType(self):
 
 		nums = [5, 5.5, -5, '5']
 
@@ -29,8 +29,125 @@ class CleaningTestCase(unittest.TestCase):
 		self.assertEqual(getTypesPattern(row), row_types)
 
 		row = [1,2,3,4,5]
+		row_types = ['num', 'num', 'num', 'num', 'num']
+		self.assertEqual(getTypesPattern(row), row_types)
+
+		row = [1.1,0.2,3,4,5]
+		row_types = ['num', 'num', 'num', 'num', 'num']
+		self.assertEqual(getTypesPattern(row), row_types)
+
+		row = [1,2,3,4,5]
 		row_types = ['str', 'num', 'num', 'num', 'num']
 		self.assertNotEqual(getTypesPattern(row), row_types)
+
+
+	def test_getColumn(self):
+		#testing getColumn(matrix, i)
+		pass
+
+
+	def test_nibble(self):
+		# testing nibble(row)
+		pass
+
+
+	def test_isColNumerical(self):
+		#testing isColNumerical(col)
+		pass
+
+	def test_isRowEmpty(self):
+		#testing isRowEmpty(pattern)
+		pass
+
+	def test_isInRanges(self):
+		#tesst isInRanges(i, ranges)
+		pass
+
+	def test_getLimitedRows(self):
+		#testing getLimitedRows(rows, rownums)
+		pass
+
+	def test_getRows(self):
+		#testing getRows(file_path)
+		pass
+
+
+	def test_getColumns(self):
+		#testing getColumns(rows, columns)
+		pass
+	
+	def test_cleanUnnamed(self):
+		#testing cleanUnnamed(rows)
+		pass
+
+
+
+	def test_getRowTypePatterns(self):
+		# getRowTypePatterns(rows)
+		pass
+
+	def test_getCommonRowLengths(self):
+		# getCommonRowLengths(rows)
+		pass
+
+	def test_removeEmptyRows(self):
+		# removeEmptyRows(rows)
+		pass
+
+	def test_removeExtraTopRows(self):
+		# removeExtraTopRows(rows, common_row_length)
+		pass
+
+
+	def test_removeSummaryTable(self):
+		#removeSummaryTable(rows, common_row_length)
+		pass
+
+
+	def test_removeEmptyFromList(self):
+		# removeEmptyFromList(list)
+		pass
+
+
+	def test_getHeaderNameFromData(self):
+		# getHeaderNameFromData(rows, i)
+		pass
+
+
+	def test_flattenHeaders(self):
+		# flattenHeaders(keepRows)
+		pass
+
+
+	def test_removeEmptyColumns(self):
+		# removeEmptyColumns(keepRows)
+		pass
+
+
+	def test_possibleSumsRow(self):
+		# possibleSumsRow(row)
+		pass
+
+	def  test_removeSumsRow(self):
+		# removeSumsRow(rows)
+		pass
+
+	def test_saveAsCSV(self):
+		# def saveAsCSV(cleanRows, dest_folder, file_name_short)
+		pass
+
+	def test_saveAsJSON(self):
+		# saveAsJSON(rows, dest_folder, file_name_short)
+		pass
+
+	def test_saveAsJSON_2(self):
+		# saveAsJSON_2(rows, dest_folder, file_name_short)
+		pass
+
+
+	def test_cleanFile(self):
+		# cleanFile(file_name, dest_folder, skim=False, columns=[], rownums=[], json=False, json2=False)
+		pass
 
 
 
