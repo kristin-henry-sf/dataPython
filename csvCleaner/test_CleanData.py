@@ -23,7 +23,17 @@ class CleaningTestCase(unittest.TestCase):
 
 	def test_nibble(self):
 		# nibble(row)
-		print 'ToDo: write test for nibble(row)'
+		
+		row = ['one', 2, '', '', '']
+		new_row = ['one', 2]
+
+		self.assertEqual(nibble(row), new_row)
+
+		row = ['one', 2, '', '', '', 'last']
+		new_row = ['one', 2]
+
+		self.assertNotEqual(nibble(row), new_row)
+
 
 
 	def test_getType(self):
@@ -155,7 +165,7 @@ class CleaningTestCase(unittest.TestCase):
 	def test_getRowTypePatterns(self):
 		# getRowTypePatterns(rows)
 		# getting most common patterns, in order of frequency, with most frequent first
-		print 'ToDo: write more tests for getRowTypePatterns(rows)'
+		print 'ToDo: write *more* tests for getRowTypePatterns(rows)'
 		
 		rows = [[1, 2, 'three', ''],
 				[11,22,33,44],
@@ -196,7 +206,6 @@ class CleaningTestCase(unittest.TestCase):
 				[11,22,33,44],
 				[111, 222, 333, 444]]
 
-
 		self.assertEqual(removeEmptyRows(rows), new_rows)
 
 
@@ -226,7 +235,27 @@ class CleaningTestCase(unittest.TestCase):
 
 	def test_removeSummaryTable(self):
 		#removeSummaryTable(rows, common_row_length)
-		print "ToDo: write test for removeSummaryTable(rows, common_row_length)"
+
+		rows = [['one', 'two', 'three', 'four', 'five', 'six'],
+				[1, 2, 3, 4, 5, 6],
+				[11, 22, 33, 44, 55, 66],
+				[111, 222, 333, 444, 555, 666],
+				[1111, 2222, 3333, 4444, 5555, 6666],
+				['ones', 4],
+				['twos', 4]
+				]
+
+		common_row_length = 6
+
+		new_rows = [['one', 'two', 'three', 'four', 'five', 'six'],
+				[1, 2, 3, 4, 5, 6],
+				[11, 22, 33, 44, 55, 66],
+				[111, 222, 333, 444, 555, 666],
+				[1111, 2222, 3333, 4444, 5555, 6666]]
+
+		self.assertEqual(removeSummaryTable(rows, common_row_length), new_rows)
+
+
 
 
 	def test_removeEmptyFromList(self):
@@ -325,20 +354,20 @@ class CleaningTestCase(unittest.TestCase):
 
 	def test_saveAsCSV(self):
 		# def saveAsCSV(cleanRows, dest_folder, file_name_short)
-		pass
+		print 'ToDo: write test for saveAsCSV'
 
 	def test_saveAsJSON(self):
 		# saveAsJSON(rows, dest_folder, file_name_short)
-		pass
+		print 'ToDo: write test for saveAsJSON'
 
 	def test_saveAsJSON_2(self):
 		# saveAsJSON_2(rows, dest_folder, file_name_short)
-		pass
+		print 'ToDo: write test for saveAsJSON_2'
 
 
 	def test_cleanFile(self):
 		# cleanFile(file_name, dest_folder, skim=False, columns=[], rownums=[], json=False, json2=False)
-		pass
+		print 'ToDo: write test for cleanFile'
 
 
 
