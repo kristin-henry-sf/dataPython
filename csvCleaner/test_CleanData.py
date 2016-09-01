@@ -116,7 +116,7 @@ class CleaningTestCase(unittest.TestCase):
 	def test_getLimitedRows(self):
 		# getLimitedRows(rows, rownums)
 		
-		print 'ToDo: write test for getLimitedRowws(rows, rownums)'
+		print 'ToDo: write test for getLimitedRows(rows, rownums)'
 
 	def test_getRows(self):
 		# getRows(file_path)
@@ -239,20 +239,31 @@ class CleaningTestCase(unittest.TestCase):
 
 
 
+	def test_getPossibleHeaderNamesFromData(self):
+		# getPossibleHeaderNamesFromData(rows, i)
+		rows = [['one', '', 'three', '', '', 'six'],
+				[11, '', 33, 'four', 55, 66],
+				[11, '', 33, 'four', 55, 66],
+				[111, '', 333, 'two', 555, 666]]
+
+		self.assertEqual(getPossibleHeaderNamesFromData(rows, 3), ['two', 'four'])
+		self.assertEqual(getPossibleHeaderNamesFromData(rows, 4), ['num_4', 555, 55])
+		self.assertEqual(getPossibleHeaderNamesFromData(rows, 1), [])
+
+
+	
+
 
 	def test_getHeaderNameFromData(self):
 		# getHeaderNameFromData(rows, i)
-		rows = [['one', 'two', 'three', '', '', 'six'],
-				[11, 22, 33, 'four', 55, 66],
-				[11, 22, 33, 'four', 55, 66],
-				[111, 222, 333, 'two', 555, 666]]
-
-		# print 'new headername: ', getHeaderNameFromData(rows, 3)
+		rows = [['one', '', 'three', '', '', 'six'],
+				[11, '', 33, 'four', 55, 66],
+				[11, '', 33, 'four', 55, 66],
+				[111, '', 333, 'two', 555, 666]]
 
 		self.assertEqual(getHeaderNameFromData(rows, 3), 'two')
 		self.assertEqual(getHeaderNameFromData(rows, 4), 'num_4')
-
-		print '***Working Here*** on getHeaderNameFromData, need to make this function much more thorough'
+		self.assertEqual(getHeaderNameFromData(rows, 1), '')
 
 
 	def test_flattenHeaders(self):
