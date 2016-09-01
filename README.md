@@ -113,6 +113,12 @@ Headerless columns, with only numerical data, are named 'num' + the index of the
 
 Unit tests are currently in development.
 
+To run existing tests:
+
+```
+python test_CleanData.py
+```
+
 
 ## Test files
 Example csv files to test code with. Code expects them in the 'tmp' folder.
