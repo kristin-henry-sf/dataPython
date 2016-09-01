@@ -215,12 +215,13 @@ def getHeaderNameFromData(rows, i):
 	if len(colData) > 0:
 
 		if isColNumerical(colData):
-			hName = 'num' + str(i)
+			hName = 'num_' + str(i) 
+
 		else:
 			colData.sort(key =len)
-			print colData
+			# print colData
 			hName = colData[0]
-	
+
 	return hName
 
 
