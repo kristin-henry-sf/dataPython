@@ -205,22 +205,30 @@ def removeEmptyFromList(list):
 	return newlist
 
 
+def getPossibleHeaderNamesFromData(rows, i):
+	# might want to add a command line interface for selecting among possible header names,
+	# so abstracting this code which will pass the names to getHeaderNameFromData 
+	
+	colData = set(getColumn(rows, i))
+	colData = removeEmptyFromList(colData) 
+
+	if len(colData)> 0:
+		if isColNumerical(colData):
+			colData.insert(0, 'num_' + str(i))
+		else:
+			colData.sort(key=len)
+
+	return colData
+
+
 def getHeaderNameFromData(rows, i):
 	# get shortest name from data in column. If no data, then this is empty column and no header needed
 	hName = ''
 
-	colData = set(getColumn(rows, i))
-	colData = removeEmptyFromList(colData) 
+	colData = getPossibleHeaderNamesFromData(rows, i)
 
 	if len(colData) > 0:
-
-		if isColNumerical(colData):
-			hName = 'num_' + str(i) 
-
-		else:
-			colData.sort(key =len)
-			# print colData
-			hName = colData[0]
+		hName = colData[0]
 
 	return hName
 
