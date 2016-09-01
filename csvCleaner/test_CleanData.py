@@ -165,7 +165,7 @@ class CleaningTestCase(unittest.TestCase):
 	def test_getRowTypePatterns(self):
 		# getRowTypePatterns(rows)
 		# getting most common patterns, in order of frequency, with most frequent first
-		print 'ToDo: write more tests for getRowTypePatterns(rows)'
+		print 'ToDo: write *more* tests for getRowTypePatterns(rows)'
 		
 		rows = [[1, 2, 'three', ''],
 				[11,22,33,44],
@@ -354,20 +354,20 @@ class CleaningTestCase(unittest.TestCase):
 
 	def test_saveAsCSV(self):
 		# def saveAsCSV(cleanRows, dest_folder, file_name_short)
-		pass
+		print 'ToDo: write test for saveAsCSV'
 
 	def test_saveAsJSON(self):
 		# saveAsJSON(rows, dest_folder, file_name_short)
-		pass
+		print 'ToDo: write test for saveAsJSON'
 
 	def test_saveAsJSON_2(self):
 		# saveAsJSON_2(rows, dest_folder, file_name_short)
-		pass
+		print 'ToDo: write test for saveAsJSON_2'
 
 
 	def test_cleanFile(self):
 		# cleanFile(file_name, dest_folder, skim=False, columns=[], rownums=[], json=False, json2=False)
-		pass
+		print 'ToDo: write test for cleanFile'
 
 
 
