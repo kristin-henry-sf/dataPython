@@ -242,14 +242,15 @@ class CleaningTestCase(unittest.TestCase):
 
 	def test_getHeaderNameFromData(self):
 		# getHeaderNameFromData(rows, i)
-		# rows = [['one', 'two', 'three', '', 'five', 'six'],
-		# 		[11, 22, 33, 'four', 55, 66],
-		# 		[11, 22, 33, 'four', 55, 66],
-		# 		[111, 222, 333, '444', 555, 666]]
+		rows = [['one', 'two', 'three', '', '', 'six'],
+				[11, 22, 33, 'four', 55, 66],
+				[11, 22, 33, 'four', 55, 66],
+				[111, 222, 333, 'two', 555, 666]]
 
 		# print 'new headername: ', getHeaderNameFromData(rows, 3)
 
-		# self.assertEqual(getHeaderNameFromData(rows, 3), 'four')
+		self.assertEqual(getHeaderNameFromData(rows, 3), 'two')
+		self.assertEqual(getHeaderNameFromData(rows, 4), 'num_4')
 
 		print '***Working Here*** on getHeaderNameFromData, need to make this function much more thorough'
 
@@ -293,6 +294,7 @@ class CleaningTestCase(unittest.TestCase):
 		row = [1,2, '', '', '', 3]
 		self.assertEqual(possibleSumsRow(row), True)
 
+
 	def  test_removeSumsRow(self):
 		# removeSumsRow(rows)
 		rows = [['one', 'two', 'three', 'four', 'five'],
@@ -308,7 +310,7 @@ class CleaningTestCase(unittest.TestCase):
 
 		self.assertEqual(removeSumsRow(rows), new_rows)
 
-		
+
 
 	def test_saveAsCSV(self):
 		# def saveAsCSV(cleanRows, dest_folder, file_name_short)
