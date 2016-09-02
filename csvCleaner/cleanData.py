@@ -55,10 +55,10 @@ def getType(elem):
 
 
 def getTypesPattern(row):
-	rowTypes = []
+	row_types = []
 	for elem in row:
-		rowTypes.append(getType(elem))
-	return rowTypes
+		row_types.append(getType(elem))
+	return row_types
 
 
 def isColNumerical(col):
@@ -87,18 +87,17 @@ def isInRanges(i, ranges):
 			if float(i) == float(r):
 				return True
 	
-	
 	return False
 			
 
-def getLimitedRows(rows, rownums):
-	if '-' in rownums:
-		nums = rownums.split('-')
+def getLimitedRows(rows, row_nums):
+	if '-' in row_nums:
+		nums = row_nums.split('-')
 		min = int(nums[0])
 		max = int(nums[2])
 	else:
 		min = 0
-		max = int(rownums[0])
+		max = int(row_nums[0])
 
 	rows = rows[min:max]
 
@@ -120,32 +119,32 @@ def getRows(file_path):
 
 def getColumns(rows, columns):
 	#ToDo: this is not efficient....look for better ways
-	newrows = []
+	new_rows = []
 
 	for row in rows:
 		i = 0
-		newrow = []
+		new_row = []
 		for elem in row:
 			if isInRanges(i, columns):
-				newrow.append(elem)
+				new_row.append(elem)
 			i+=1
 
-		newrows.append(newrow)
+		new_rows.append(new_row)
 
-	return newrows
+	return new_rows
 
 
 def cleanUnnamed(rows):
 	row = rows[0] 	# get the first row, only one that could have 'Unnamed: # ' cells
 	rows = rows[1:] # save the rest of the rows
 	
-	newrow = []
+	new_row = []
 	for cell in row:
 		if 'Unnamed' in cell:
-			newrow.append('')
+			new_row.append('')
 		else:
-			newrow.append(cell)
-	rows.insert(0, newrow) # put our cleaned row back as first row 
+			new_row.append(cell)
+	rows.insert(0, new_row) # put our cleaned row back as first row 
 	
 	return rows
 
@@ -198,47 +197,47 @@ def removeSummaryTable(rows, common_row_length):
 
 
 def removeEmptyFromList(list):
-	newlist = []
+	new_list = []
 	for l in list:
 		if l != '':
-			newlist.append(l)
-	return newlist
+			new_list.append(l)
+	return new_list
 
 
 def getPossibleHeaderNamesFromData(rows, i):
 	# might want to add a command line interface for selecting among possible header names,
 	# so abstracting this code which will pass the names to getHeaderNameFromData 
 	
-	colData = set(getColumn(rows, i))
-	colData = removeEmptyFromList(colData) 
+	col_data = set(getColumn(rows, i))
+	col_data = removeEmptyFromList(col_data) 
 
-	if len(colData)> 0:
-		if isColNumerical(colData):
-			colData.insert(0, 'num_' + str(i))
+	if len(col_data)> 0:
+		if isColNumerical(col_data):
+			col_data.insert(0, 'num_' + str(i))
 		else:
-			colData.sort(key=len)
+			col_data.sort(key=len)
 
-	return colData
+	return col_data
 
 
 def getHeaderNameFromData(rows, i):
 	# get shortest name from data in column. If no data, then this is empty column and no header needed
-	hName = ''
+	h_name = ''
 
-	colData = getPossibleHeaderNamesFromData(rows, i)
+	col_data = getPossibleHeaderNamesFromData(rows, i)
 
-	if len(colData) > 0:
-		hName = colData[0]
+	if len(col_data) > 0:
+		h_name = col_data[0]
 
-	return hName
+	return h_name
 
 
-def flattenHeaders(keepRows):
+def flattenHeaders(rows):
 	# This is not as robust as it can be, keeping it simple for now
 	# Assumption: first rows are likely to be headers, and when pattern becomes 'common', it's data
 	# Assumption: headers will not have numbers as names --> header rows don't have number types in them
 	headers = []
-	for row in keepRows[:2]:
+	for row in rows[:2]:
 		if 'num' not in getTypesPattern(row):
 			headers.append(row)
 		else:
@@ -246,7 +245,7 @@ def flattenHeaders(keepRows):
 
 	if len(headers) > 1:
 		# remove the old headers 
-		keepRows = keepRows[len(headers):]
+		rows = rows[len(headers):]
 
 		new_header = []
 
@@ -268,59 +267,59 @@ def flattenHeaders(keepRows):
 			if types == ('empty', 'empty'):
 							 
 				pre = ''
-				post = '****' + getHeaderNameFromData(keepRows,i)[:9]  # the '****' indicates header name was extracted and needs to be edited by a person
+				post = '****' + getHeaderNameFromData(rows,i)[:9]  # the '****' indicates header name was extracted and needs to be edited by a person
 				# print 'extracted Header: ', post
 
 			new_header.append(pre + post)
 			i += 1
 
-		keepRows.insert(0,new_header)
+		rows.insert(0,new_header)
 
-	return keepRows
+	return rows
 
 
-def removeEmptyColumns(keepRows):
+def removeEmptyColumns(rows):
 	#----------------------------------------------
 	#  remove empty columns
 	#  To Do: do this more efficiently!!
-	header = keepRows[0]
+	header = rows[0]
 
 	# find any empty header cells
-	emptyHeaderCells = []
+	empty_header_cells = []
 	i = 0
 	for cell in header:
 		if(getType(cell) == 'empty'):
-			emptyHeaderCells.append(i)
+			empty_header_cells.append(i)
 		i += 1
 
 	# check if all the data cells in column are also empty
 	columns_to_remove = []
-	for col in emptyHeaderCells:
+	for col in empty_header_cells:
 		remove_col = True
-		for row in keepRows:
+		for row in rows:
 			if getType(row[col]) != 'empty':
 				remove_col = False
 		if remove_col == True:
 			columns_to_remove.append(col)
 
 	# # Now go through and remove columns from header and data
-	cleanRows = []
-	for row in keepRows:
-		tempRow = []
+	clean_rows = []
+	for row in rows:
+		temp_row = []
 		i=0
 		for elem in row:
 			if i not in columns_to_remove:
-				tempRow.append(elem)
+				temp_row.append(elem)
 			i+=1
-		cleanRows.append(tempRow)
+		clean_rows.append(temp_row)
 
-	return cleanRows
+	return clean_rows
 
 
 def possibleSumsRow(row):
-	sumsTypes = ['num', 'empty']
+	sums_types = ['num', 'empty']
 	for cell in row:
-		if getType(cell) not in sumsTypes:
+		if getType(cell) not in sums_types:
 			return False
 	return True
 
@@ -338,11 +337,11 @@ def removeSumsRow(rows):
 	return rows
 
 
-def saveAsCSV(cleanRows, dest_folder, file_name_short):
+def saveAsCSV(rows, dest_folder, file_name_short):
 	complete_name = os.path.join(dest_folder, file_name_short + '_cleaned.csv')
 	with open( complete_name, 'wb') as f:
 		writer = csv.writer(f)
-		writer.writerows(cleanRows)
+		writer.writerows(rows)
 
 	f.close()
 
