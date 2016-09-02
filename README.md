@@ -6,7 +6,7 @@ Currently, it's a command line tool.
 
 ## First, Quick and Dirty version
 Python 2.7 (for now)
-Note: this is very rough, first iteration
+Note: this is the first iteration. Though based on real-world examples, it still needs to be thoroughly tested.
 
 **run from command line with**
 
@@ -106,6 +106,11 @@ When giving a column an extracted header name, currently prepending it with "***
 * so that it's easy to see which headers are extracted in the cleaned csv. Making it easier to go in and modify 'by hand' or with eventual UI for doing this task.
 
 Headerless columns, with only numerical data, are named 'num' + the index of the column. 
+
+
+# Coding conventions
+* names: Currently, variable names are in underscore_style and functions are in camelCaseStyle
+* Python version: 2.7 (soon will be Python3 compliant)
 
 
 # Testing
