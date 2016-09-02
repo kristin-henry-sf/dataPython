@@ -108,9 +108,15 @@ When giving a column an extracted header name, currently prepending it with "***
 Headerless columns, with only numerical data, are named 'num' + the index of the column. 
 
 
-# Coding conventions
+# Coding conventions and reasoning
 * names: Currently, variable names are in underscore_style and functions are in camelCaseStyle
 * Python version: 2.7 (soon will be Python3 compliant)
+
+## why lists of lists?
+In the code, the data from the csv is in list of lists, instead of in a dataframe. Why? 
+* The raw data may not have a header, so there are no labels at all for a dataframe
+* The raw data may not be consistently sized, and may contain multiple 'tables' and different dimensions
+* The raw data may have missing column names, in addition to multiple and heirarchical header rows
 
 
 # Testing
