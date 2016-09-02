@@ -1,8 +1,10 @@
+from __future__ import division
 import os
 import csv, json
 import numbers
 # import pandas as pd
 from collections import Counter
+
 
 
 def getColumn(matrix, i):

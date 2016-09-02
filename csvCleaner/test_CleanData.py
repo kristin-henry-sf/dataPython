@@ -1,3 +1,4 @@
+from __future__ import division
 import unittest
 # from cleanData import getColumn, nibble, getType, getTypesPattern, isColNumerical, isRowEmpty, isInRanges
 from cleanData import *
