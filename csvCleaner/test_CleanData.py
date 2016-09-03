@@ -352,6 +352,23 @@ class CleaningTestCase(unittest.TestCase):
 		self.assertEqual(removeSumsRow(rows), new_rows)
 
 
+	def test_numericalOnlyData(self):
+		# test for when file has only numrical data, and no headers
+
+		# UPLOAD_FOLDER = './tmp/'
+		CLEANED_FOLDER = './cleaned/'
+
+		filename = './tmp/numbers_only.csv'
+		new_filename = './cleaned/numbers_only_cleaned.csv'
+		cleanFile(filename, CLEANED_FOLDER)
+
+		old_rows = getRows(filename)
+		new_rows = getRows(new_filename)
+		# print old_rows
+		# print new_rows[1:]
+		self.assertEqual(old_rows, new_rows)
+
+
 
 	def test_saveAsCSV(self):
 		# def saveAsCSV(cleanRows, dest_folder, file_name_short)
