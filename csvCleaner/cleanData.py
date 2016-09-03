@@ -1,8 +1,10 @@
+from __future__ import division
 import os
 import csv, json
 import numbers
 # import pandas as pd
 from collections import Counter
+
 
 
 def getColumn(matrix, i):
@@ -331,7 +333,7 @@ def removeSumsRow(rows):
 	row_z = rows[len(rows)-1]
 
 	# ToDo make this more robust!!! Check previous rows...
-	if possibleSumsRow(row_z):
+	if possibleSumsRow(row_z) and getTypesPattern(row_z) != getTypesPattern(row_y):
 		rows = rows[:-1]
 
 	return rows
