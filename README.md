@@ -69,11 +69,11 @@ would be rendered as
 
 ```
 {
-	hd1: { hd1.a: 001, hd1.b: 001, hd1.b: 001},
+	hd1: { hd1.a: 001, hd1.b: 001, hd1.c: 001},
  	hd2: { hd2.a: 001}
 },
 {
-	hd1: { hd1.a: 002, hd1.b: 002, hd1.b: 002},
+	hd1: { hd1.a: 002, hd1.b: 002, hd1.c: 002},
  	hd2: { hd2.a: 002}
 }
 
