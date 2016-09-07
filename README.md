@@ -6,6 +6,10 @@ Currently, it's a command line tool.
 
 ## First, Quick and Dirty version
 Python 2.7 (for now)
+Install Python with Anaconda (2.7 version): https://www.continuum.io/downloads
+
+If you're running 3.x version of Python, install 2.7 in a venv: http://docs.python-guide.org/en/latest/dev/virtualenvs/
+
 Note: this is the first iteration. Though based on real-world examples, it still needs to be thoroughly tested.
 
 **run from command line with**
