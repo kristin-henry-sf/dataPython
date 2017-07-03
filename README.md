@@ -33,9 +33,7 @@ To remove these, use
 **Example that works:**
 
 | conact@email.com   |  |  |  |
-| ----- | ----- | ----- | ----- |
 | **hd1.a** | hd1.b | hd1.c | hd2.a |
-| ----- | ----- | ----- | ----- |
 | 001   | 001   | 001   | 001   |
 | 002   | 002   | 002   | 002   |
 
@@ -43,11 +41,11 @@ To remove these, use
 **Example that will fail:**
 
 | contact@email.com   |  | 
-| ----- | ----- | 
 | hd1 | hd2 | 
-| ----- | ----- | 
 | 001   | 001   | 
 | 002   | 002   | 
+
+The current implementation compares the length of the top rows to the 'normal' length of data rows, and this example has too few columns to use this feature.
 
 ### Notes: 
 * If you know which row is the header, you may want to use the row selector flag instead
