@@ -33,6 +33,8 @@ To remove these, use
 
 **Examples this works for:**
 
+These two empty rows, at the top of the csv, will be removed if '-skim'
+flag is used.
 
 |  |  |   |  |
 | ----- | ----- | ----- | ----- |
@@ -41,9 +43,8 @@ To remove these, use
 | 001   | 001   | 001   | 001   |
 | 002   | 002   | 002   | 002   |
 
-These two empty rows, at the top of the csv, will be removed if '-skim'
-flag is used.
 
+In this example, the skim feature is able to detect that the first row should be removed, because the first row has only one value and the header has four values.
 
 | contact @email.com   |  |   |  |
 | ----- | ----- | ----- | ----- |
@@ -51,10 +52,11 @@ flag is used.
 | 001   | 001   | 001   | 001   |
 | 002   | 002   | 002   | 002   |
 
-In this example, the skim feature is able to detect that the first row should be removed, because the first row has only one value and the header has four values.
+
 
 
 **Example that will fail:**
+The current implementation compares the length of the top rows to the 'normal' length of data rows, and this example has too few columns to use this feature.
 
 | contact @email.com   |  | 
 | ----- | ----- | 
@@ -62,7 +64,7 @@ In this example, the skim feature is able to detect that the first row should be
 | 001   | 001   | 
 | 002   | 002   | 
 
-The current implementation compares the length of the top rows to the 'normal' length of data rows, and this example has too few columns to use this feature.
+
 
 ### Notes: 
 * If you know which row is the header, you may want to use the row selector flag instead
