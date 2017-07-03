@@ -56,6 +56,7 @@ In this example, the skim feature is able to detect that the first row should be
 
 
 **Example that will fail:**
+
 The current implementation compares the length of the top rows to the 'normal' length of data rows, and this example has too few columns to use this feature.
 
 | contact @email.com   |  | 
