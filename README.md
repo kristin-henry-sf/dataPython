@@ -33,8 +33,8 @@ To remove these, use
 **Example that works:**
 
 | conact@email.com   | ___ | ___  | ___ |
-| **hd1.a** | hd1.b | hd1.c | hd2.a |
 | ----- | ----- | ----- | ----- |
+| **hd1.a** | hd1.b | hd1.c | hd2.a |
 | 001   | 001   | 001   | 001   |
 | 002   | 002   | 002   | 002   |
 
@@ -42,8 +42,8 @@ To remove these, use
 **Example that will fail:**
 
 | contact@email.com   | ___ | 
-| hd1 | hd2 | 
 | ----- | ----- | 
+| hd1 | hd2 | 
 | 001   | 001   | 
 | 002   | 002   | 
 
