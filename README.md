@@ -72,14 +72,6 @@ The current implementation compares the length of the top rows to the 'normal' l
 * need more example files to test with, especially with extra top rows + nested headers with sparse content in first header row
 
 
-## select specific columns
-
-```python cleaner.py -i 10-29, 45```
-
-* index starts at 0 
-* can select specific columns individually, and in ranges, by index
-* new arguments after -i need to use a '-', to indicate that it's different flag
-
 ## select specific rows
 
 ```python cleaner.py -rows 10``` or ```python cleaner.py -rows 1-20```
@@ -88,6 +80,17 @@ The current implementation compares the length of the top rows to the 'normal' l
 
 ```python cleaner.py -skim -rows 10 -i 1-4```
 * This lets you remove extra headers and save specific rows and columns from the original file
+
+
+## select specific columns
+
+```python cleaner.py -i 10-29, 45```
+
+* index starts at 0 
+* can select specific columns individually, and in ranges, by index
+* new arguments after -i need to use a '-', to indicate that it's different flag
+
+
 
 
 ## export in json format
