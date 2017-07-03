@@ -41,7 +41,7 @@ To remove these, use
 
 **Example that will fail:**
 
-| contact@email.com   | ___ | 
+| contact@email.com   |  | 
 | ----- | ----- | 
 | hd1 | hd2 | 
 | 001   | 001   | 
@@ -87,10 +87,9 @@ The current implementation compares the length of the top rows to the 'normal' l
 * ToDo: extract subheader from data when there is an empty subheader
 * still working on this
 
-| hd1   | _____ | _____ | hd2   |
+| hd1   |  |  | hd2   |
 | ----- | ----- | ----- | ----- |
 | **hd1.a** | hd1.b | hd1.c | hd2.a |
-| ----- | ----- | ----- | ----- |
 | 001   | 001   | 001   | 001   |
 | 002   | 002   | 002   | 002   |
 
@@ -116,13 +115,13 @@ Some spreadsheets have data that is categorical, but in a wide format in the tab
 
 example data:
 
-| hd1 | hd2 | hd3 | ____ | ____ | hd6 | hd7 |
+| hd1 | hd2 | hd3 |  |  | hd6 | hd7 |
 | --- | --- | --- | ---- | ---- | --- | --- |
 | 001 | 001 | 001 | dt4 | dt5 | 001 | 001 |
-| 002 | 002 | 002 | ____ | ____ | 002 | 002 |
+| 002 | 002 | 002 |  |  | 002 | 002 |
 | 003 | 003 | 003 | dt4 | dt5 | 003 | 003 |
-| 004 | 004 | 004 | ____ | ____ | 004 | 004 |
-| 005 | 005 | 005 | dt4 | ____ | 005 | 005 |
+| 004 | 004 | 004 |  | | 004 | 004 |
+| 005 | 005 | 005 | dt4 |  | 005 | 005 |
 
 
 
