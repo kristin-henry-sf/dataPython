@@ -2,7 +2,6 @@ from __future__ import division
 import os
 import csv, json
 import numbers
-# import pandas as pd
 from collections import Counter
 
 
@@ -179,11 +178,18 @@ def removeEmptyRows(old_rows):
 
 # ToDo: make sure we don't remove heaaders that are empty in last cells
 def removeExtraTopRows(rows, common_row_length):
+
+	print('common row lenght: ', common_row_length)
+
 	i = 0
 	for row in rows:
 		i+=1
 		row = nibble(row)
-		if len(row) == common_row_length:
+		print len(row)
+		print row
+
+		# if len(row) > 0:
+		if len(row) >= common_row_length/2:
 			break
 	return rows[i-1:]
 
@@ -423,10 +429,9 @@ def cleanFile(file_name, dest_folder, skim=False, columns=[], rownums=[], json=F
 	common_row_length = counts.most_common(1)[0][0] #most common length should be our data rows 
 
 
-	# Only execute this if command line argument 'top' is used
+	# Only execute this if command line argument '-skim' is used
 	if skim:
-		print 'skim of the top'
-
+		print 'skiming empty or extra rows off the top...'
 		rows = removeExtraTopRows(rows, common_row_length)
 
 

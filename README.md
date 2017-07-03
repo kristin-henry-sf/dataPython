@@ -16,20 +16,43 @@ Note: this is the first iteration. Though based on real-world examples, it still
 
 ```python cleaner.py```
 
-## Command line arguments
+# Command line arguments
 
-### Remove extra rows from top
+## Remove extra rows from top
 
-To remove extra rows above header rows, like the mailing address and logo of data source:
+Sometimes, we get csv files with extra rows at the top of the file. These rows may be empty, or extra information like the mailing address and logo of data source.
+
+To remove these, use 
 
 ```python cleaner.py -skim```
 
-* Must use '-skim' argv to indicate that the first row is not a header. 
-	* Eventually, user intervention may not be needed and extra rows may be automatically detected as a pattern in the source file
+### Cases this works for:
+* First rows are completely empty
+* Extra top rows are less than 1/2 as many cells wide as the header/data rows
+
+**Example that works:**
+| conact@email.com   |  |  |  |
+| ----- | ----- | ----- | ----- |
+| **hd1.a** | hd1.b | hd1.c | hd2.a |
+| ----- | ----- | ----- | ----- |
+| 001   | 001   | 001   | 001   |
+| 002   | 002   | 002   | 002   |
+
+
+**Example that will fail:**
+| contact@email.com   |  | 
+| ----- | ----- | 
+| hd1 | hd2 | 
+| ----- | ----- | 
+| 001   | 001   | 
+| 002   | 002   | 
+
+### Notes: 
+* If you know which row is the header, you may want to use the row selector flag instead
 * need more example files to test with, especially with extra top rows + nested headers with sparse content in first header row
 
 
-### select specific columns
+## select specific columns
 
 ```python cleaner.py -i 10-29, 45```
 
@@ -37,7 +60,7 @@ To remove extra rows above header rows, like the mailing address and logo of dat
 * can select specific columns individually, and in ranges, by index
 * new arguments after -i need to use a '-', to indicate that it's different flag
 
-### select specific rows
+## select specific rows
 
 ```python cleaner.py -rows 10``` or ```python cleaner.py -rows 1-20```
 * These allow you to limit the number of rows. 
@@ -47,14 +70,14 @@ To remove extra rows above header rows, like the mailing address and logo of dat
 * This lets you remove extra headers and save specific rows and columns from the original file
 
 
-### export in json format
+## export in json format
 
 ```python cleaner.py -json```
 * saves data in json format
 * still working on this...
 
 
-### export in nested json format
+## export in nested json format
 
 ```python cleaner.py -json2```
 * two levels
