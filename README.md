@@ -32,7 +32,7 @@ To remove these, use
 
 **Example that works:**
 
-| conact@email.com   | ___ | ___  | ___ |
+| conact@email.com   |  |   |  |
 | ----- | ----- | ----- | ----- |
 | **hd1.a** | hd1.b | hd1.c | hd2.a |
 | 001   | 001   | 001   | 001   |
