@@ -18,7 +18,8 @@ Note: this is the first iteration. Though based on real-world examples, it still
 
 # Command line arguments
 
-## '-skim'  : Remove extra rows at top of file
+## '-skim'  
+### Removes extra rows at top of file
 
 Sometimes, we get csv files with extra rows at the top of the file. These rows may be empty, or extra information like the mailing address and logo of data source.
 
