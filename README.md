@@ -45,7 +45,7 @@ These two empty rows, at the top of the csv, will be removed if '-skim'
 flag is used.
 
 
-| conact @email.com   |  |   |  |
+| contact @email.com   |  |   |  |
 | ----- | ----- | ----- | ----- |
 | **hd1.a** | **hd1.b** | **hd1.c** | **hd2.a** |
 | 001   | 001   | 001   | 001   |
