@@ -31,6 +31,7 @@ To remove these, use
 * Extra top rows are less than 1/2 as many cells wide as the header/data rows
 
 **Example that works:**
+
 | conact@email.com   |  |  |  |
 | ----- | ----- | ----- | ----- |
 | **hd1.a** | hd1.b | hd1.c | hd2.a |
@@ -40,6 +41,7 @@ To remove these, use
 
 
 **Example that will fail:**
+
 | contact@email.com   |  | 
 | ----- | ----- | 
 | hd1 | hd2 | 
