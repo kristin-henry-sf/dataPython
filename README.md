@@ -30,20 +30,30 @@ To remove these, use
 * First rows are completely empty
 * Extra top rows are less than 1/2 as many cells wide as the header/data rows
 
-**Example that works:**
+**Examples that works:**
 
-| conact@email.com   |  |   |  |
+
+|  |  |   |  |
 | ----- | ----- | ----- | ----- |
-| **hd1.a** | hd1.b | hd1.c | hd2.a |
+| **hd1.a** | **hd1.b** | **hd1.c** | **hd2.a** |
 | 001   | 001   | 001   | 001   |
 | 002   | 002   | 002   | 002   |
 
 
+| conact @email.com   |  |   |  |
+| ----- | ----- | ----- | ----- |
+| **hd1.a** | **hd1.b** | **hd1.c** | **hd2.a** |
+| 001   | 001   | 001   | 001   |
+| 002   | 002   | 002   | 002   |
+
+In this example, the skim feature is able to detect that the first row should be removed, because the first row has only one value and the header has four values.
+
+
 **Example that will fail:**
 
-| contact@email.com   |  | 
+| contact @email.com   |  | 
 | ----- | ----- | 
-| hd1 | hd2 | 
+| **hd1** | **hd2** | 
 | 001   | 001   | 
 | 002   | 002   | 
 
