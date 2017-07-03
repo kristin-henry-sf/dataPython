@@ -29,9 +29,9 @@ To remove these, use
 
 ### Cases this works for:
 * First rows are completely empty
-* Extra top rows are less than 1/2 as many cells wide as the header/data rows
+* Extra rows, at top of file, are less than 1/2 as many cells wide as the header/data rows
 
-**Examples that works:**
+**Examples this works for:**
 
 
 |  |  |   |  |
