@@ -18,7 +18,7 @@ Note: this is the first iteration. Though based on real-world examples, it still
 
 # Command line arguments
 
-## Remove extra rows from top
+## '-skim'  --> Remove extra rows from top
 
 Sometimes, we get csv files with extra rows at the top of the file. These rows may be empty, or extra information like the mailing address and logo of data source.
 
@@ -39,6 +39,9 @@ To remove these, use
 | **hd1.a** | **hd1.b** | **hd1.c** | **hd2.a** |
 | 001   | 001   | 001   | 001   |
 | 002   | 002   | 002   | 002   |
+
+These two empty rows, at the top of the csv, will be removed if '-skim'
+flag is used.
 
 
 | conact @email.com   |  |   |  |
