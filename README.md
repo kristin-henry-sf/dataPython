@@ -14,7 +14,7 @@ Note: this is the first iteration. Though based on real-world examples, it still
 
 **run from command line with**
 
-```python hello.py```
+```python cleaner.py```
 
 ## Command line arguments
 
@@ -22,7 +22,7 @@ Note: this is the first iteration. Though based on real-world examples, it still
 
 To remove extra rows above header rows, like the mailing address and logo of data source:
 
-```python hello.py -skim```
+```python cleaner.py -skim```
 
 * Must use '-skim' argv to indicate that the first row is not a header. 
 	* Eventually, user intervention may not be needed and extra rows may be automatically detected as a pattern in the source file
@@ -31,7 +31,7 @@ To remove extra rows above header rows, like the mailing address and logo of dat
 
 ### select specific columns
 
-```python hello.py -i 10-29, 45```
+```python cleaner.py -i 10-29, 45```
 
 * index starts at 0 
 * can select specific columns individually, and in ranges, by index
@@ -39,24 +39,24 @@ To remove extra rows above header rows, like the mailing address and logo of dat
 
 ### select specific rows
 
-```python hello.py -rows 10``` or ```python hello.py -rows 1-20```
+```python cleaner.py -rows 10``` or ```python cleaner.py -rows 1-20```
 * These allow you to limit the number of rows. 
 * If only one number, it's assumed you want first row and on.
 
-```python hello.py -skim -rows 10 -i 1-4```
+```python cleaner.py -skim -rows 10 -i 1-4```
 * This lets you remove extra headers and save specific rows and columns from the original file
 
 
 ### export in json format
 
-```python hello.py -json```
+```python cleaner.py -json```
 * saves data in json format
 * still working on this...
 
 
 ### export in nested json format
 
-```python hello.py -json2```
+```python cleaner.py -json2```
 * two levels
 * second header row is used as subheader
 * ToDo: extract subheader from data when there is an empty subheader
