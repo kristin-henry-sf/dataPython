@@ -92,15 +92,18 @@ def isInRanges(i, ranges):
 			
 
 def getLimitedRows(rows, row_nums):
+	# ToDo: test type of row_nums, and do any type conversion needed...dif platforms may breat this
+	row_nums = row_nums[0]
 	if '-' in row_nums:
 		nums = row_nums.split('-')
+		print nums
 		min = int(nums[0])
-		max = int(nums[2])
+		max = int(nums[1])
+		rows = rows[min:max]
 	else:
-		min = 0
-		max = int(row_nums[0])
-
-	rows = rows[min:max]
+		min = int(row_nums[0])
+		print min
+		rows = rows[min:]
 
 	return rows
 
@@ -449,7 +452,10 @@ def cleanFile(file_name, dest_folder, skim=False, columns=[], rownums=[], json=F
 
 	# make sure we take all columns and rows if not indicated otherwise
 	if len(rownums) >0:
+		print rows
 		rows = getLimitedRows(rows, rownums)
+		print '------------------------'
+		print rows
 	if len(columns) >0:
 		rows = getColumns(rows, columns)
 
