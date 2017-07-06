@@ -101,11 +101,9 @@ def isInRanges(i, ranges):
 def getRows(file_path):
 	rows = []
 
-	# print open(file_path).read().index('\0')
 	with open(file_path, 'rb') as f:
 		reader = csv.reader(f)
 		for row in reader:
-			# print row
 			rows.append(row)
 		f.close()
 	return rows
@@ -165,8 +163,8 @@ def getRanges(args):
 
 
 def getColumns(rows, columns):
-	#ToDo: this is not efficient....look for better ways
-	#ToDo: add handling for bad user entered values
+	# ToDo: ....look for better ways
+	# ToDo: add handling for bad user entered values
 	# Note: if use enters more columns than are in original file, they are ignored
 
 	cols = getRanges(columns)
@@ -188,7 +186,7 @@ def getColumns(rows, columns):
 			i+=1
 		new_rows.append(new_row)
 
-	print new_rows
+	# print new_rows
 	return new_rows
 
 def getLimitedRows(rows, row_nums):
@@ -199,7 +197,7 @@ def getLimitedRows(rows, row_nums):
 	row_nums = row_nums[0]
 	if '-' in row_nums:
 		nums = row_nums.split('-')
-		print nums
+		# print nums
 		min = int(nums[0])
 		max = int(nums[1])
 		rows = rows[min:max+1]
@@ -208,12 +206,12 @@ def getLimitedRows(rows, row_nums):
 		rows = rows[min:]
 
 	rows.insert(0,header)
-	
+
 	return rows
 
 
 def cleanUnnamed(rows):
-	row = rows[0] 	# get the first row, only one that could have 'Unnamed: # ' cells
+	row = rows[0] 	# get the first row, it's only one that could have 'Unnamed: # ' cells
 	rows = rows[1:] # save the rest of the rows
 	
 	new_row = []
@@ -506,12 +504,7 @@ def cleanFile(file_name, dest_folder, skim=False, columns=[], rownums=[], json=F
 		print 'skiming empty or extra rows off the top...'
 		rows = removeExtraTopRows(rows, common_row_length)
 
-
-	
-
-	
-
-	if not json2:
+	if (not json2) & (not json):
 		# some files have nested headers, we want just one row of header names
 		rows = flattenHeaders(rows)
 
@@ -522,18 +515,21 @@ def cleanFile(file_name, dest_folder, skim=False, columns=[], rownums=[], json=F
 	rows = removeSumsRow(rows)
 
 
-
 	print 'rownums: ', rownums
 	# make sure we take all columns and rows if not indicated otherwise
 	print 'now checking for selected rows...'
 	if len(rownums) >0:
-		print '--------'
-		print rows
+		
+		# print rows
 		rows = getLimitedRows(rows, rownums)
-		print '------------------------'
-		print rows
+		
+		# print rows
 	if len(columns) >0:
 		rows = getColumns(rows, columns)
+
+
+	print '------------------------'
+	print rows
 
 	if json:
 		saveAsJSON(rows, dest_folder, file_name_short)
@@ -542,10 +538,7 @@ def cleanFile(file_name, dest_folder, skim=False, columns=[], rownums=[], json=F
 	else:
 		saveAsCSV(rows, dest_folder, file_name_short)
 
-	#this is just for testing
-	# print '-------------------------------------'
-	# for row in rows:
-	# 	print row
+	
 #--------------------------------------------------------------------------------------------
 
 

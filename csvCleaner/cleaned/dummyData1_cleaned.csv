@@ -1,5 +1,3 @@
-Header1,Header2,SomeNumbers,SomeText,MoreNumbers,More Text
-a2,b2,748,book,74,green
-a3,b3,32,song,8335,red
-a4,b4,83735,music,3635,pink
-a5,b5,46,35 drums,78,window
+SomeNumbers,SomeText,MoreNumbers
+748,book,74
+32,song,8335

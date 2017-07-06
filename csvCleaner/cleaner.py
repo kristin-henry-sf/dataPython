@@ -40,7 +40,6 @@ getRows = False
 
 i = 0
 for arg in sys.argv:
-	print 'arg: ', arg
 	
 	if arg == '-cols':
 		cols.append(sys.argv[i+1])
@@ -51,31 +50,10 @@ for arg in sys.argv:
 
 
 
-	# # look for columns arg
-	# if getCols:
-	# 	if arg[0] != '-':
-	# 		cols.append(arg)
-	# 	else:
-	# 		getCols = False
-	# 		break
-	# if arg =='-cols':
-	# 	getCols = True
-
-	# #  look for rows arg
-	# if getRows:
-	# 	if arg[0] != '-':
-	# 		rows.append(arg)
-	# 		print 'adding rows: ', rows
-	# 	else:
-	# 		getRows = False
-	# 		break
-	# if arg == '-rows':
-	# 	print 'getting rows'
-	# 	getRows = True
 
 
 print '-----------------------'
-print 'skin', '-skim' in sys.argv
+print 'skim: ', '-skim' in sys.argv
 print '-----------------------'
 
 cleanFile(csv_path, CLEANED_FOLDER, skim='-skim' in sys.argv, columns = cols, rownums = rows, 
