@@ -84,6 +84,10 @@ def isInRanges(i, ranges):
 			nums = r.split('-')
 			if float(i) >= float(nums[0]) and float(i) <= float(nums[1]):
 				return True
+		elif ':' in r:
+			nums = r.split(':')
+			if float(i) >= float(nums[0]) and float(i) <= float(nums[1]):
+				return True
 		else:
 			if float(i) == float(r):
 				return True
@@ -91,21 +95,7 @@ def isInRanges(i, ranges):
 	return False
 			
 
-def getLimitedRows(rows, row_nums):
-	# ToDo: test type of row_nums, and do any type conversion needed...dif platforms may breat this
-	row_nums = row_nums[0]
-	if '-' in row_nums:
-		nums = row_nums.split('-')
-		print nums
-		min = int(nums[0])
-		max = int(nums[1])
-		rows = rows[min:max]
-	else:
-		min = int(row_nums[0])
-		print min
-		rows = rows[min:]
 
-	return rows
 
 
 def getRows(file_path):
@@ -119,23 +109,107 @@ def getRows(file_path):
 			rows.append(row)
 		f.close()
 	return rows
+
+
+def argsToArgstring(args):
+	#  convert list in args to a single string
+	arg_string = ""
+	for arg in args:
+		if arg[-1] != ',':
+			# this makes it so can handle both space and comma delimited lists from terminal
+			arg_string += arg + ','
+		else:
+			arg_string += arg 
+
+	# gets rid of trailing ','
+	# could fix this in the loop, but gotta work on other stuff now
+	if arg_string[-1] == ',':
+		arg_string = arg_string[:-1]
 	
+	return arg_string
+
+
+
+def stringToList(str):
+	if ',' in str:
+		ranges = str.split(',')
+	else:
+		ranges = [str]
+
+	return ranges
+
+
+
+def getRanges(args):
+	# ToDo: abstract this, so that can be used on multiple platforms
+	#        ...correct for args passing from term in different ways
+
+	arg_string = argsToArgstring(args)  # make this one handle platform inputs..keep rest same!
+	ranges = stringToList(arg_string)
+
+	new_ranges = []	
+	# now, convert strings into ints and ranges
+	for r in ranges:
+		r = r.strip()
+		if '-' in r:
+			r = r.split('-')
+			new_ranges.append([int(r[0]),int(r[1])])
+		elif '+' in r:
+			r = r.split('+')
+			new_ranges.append([int(r[0]), -1])
+		else:
+			new_ranges.append([int(r)])
+	
+	return new_ranges
+
+
 
 def getColumns(rows, columns):
 	#ToDo: this is not efficient....look for better ways
+	#ToDo: add handling for bad user entered values
+	# Note: if use enters more columns than are in original file, they are ignored
+
+	cols = getRanges(columns)
 	new_rows = []
 
 	for row in rows:
 		i = 0
 		new_row = []
 		for elem in row:
-			if isInRanges(i, columns):
-				new_row.append(elem)
-			i+=1
+			for col in cols:
+				if (len(col) <2)  & (col[0] == i) :
+					new_row.append(elem)
+				elif (len(col) > 1):
+					# this handles input for ranges of both "x-y" and "x+"
+					if (i >= col[0]):
+						if (i <= col[1]) | (col[1] == -1):
+							new_row.append(elem)
 
+			i+=1
 		new_rows.append(new_row)
 
+	print new_rows
 	return new_rows
+
+def getLimitedRows(rows, row_nums):
+
+	# ToDo: test type of row_nums, and do any type conversion needed...dif platforms may breat this
+	header = rows[0] # save the header row
+
+	row_nums = row_nums[0]
+	if '-' in row_nums:
+		nums = row_nums.split('-')
+		print nums
+		min = int(nums[0])
+		max = int(nums[1])
+		rows = rows[min:max+1]
+	else:
+		min = int(row_nums[0])
+		rows = rows[min:]
+
+	rows.insert(0,header)
+	
+	return rows
 
 
 def cleanUnnamed(rows):
@@ -181,17 +255,10 @@ def removeEmptyRows(old_rows):
 
 # ToDo: make sure we don't remove heaaders that are empty in last cells
 def removeExtraTopRows(rows, common_row_length):
-
-	print('common row lenght: ', common_row_length)
-
 	i = 0
 	for row in rows:
 		i+=1
 		row = nibble(row)
-		print len(row)
-		print row
-
-		# if len(row) > 0:
 		if len(row) >= common_row_length/2:
 			break
 	return rows[i-1:]
@@ -418,12 +485,14 @@ def cleanFile(file_name, dest_folder, skim=False, columns=[], rownums=[], json=F
 
 
 	rows = getRows(file_path)
+	print 'data, before processing: ', rows
 
 	#converting an excel sheet to csv may result in empty cells of first row to be filled with 'Unnamed: #'
 	rows = cleanUnnamed(rows)
 
-	# could have lots of empty columns 
+	# could have lots of empty columns and rows
 	rows = removeEmptyColumns(rows)
+	rows = removeEmptyRows(rows)
 
 
 	# get data type patterns from data in rows
@@ -438,7 +507,9 @@ def cleanFile(file_name, dest_folder, skim=False, columns=[], rownums=[], json=F
 		rows = removeExtraTopRows(rows, common_row_length)
 
 
-	rows = removeEmptyRows(rows)
+	
+
+	
 
 	if not json2:
 		# some files have nested headers, we want just one row of header names
@@ -450,8 +521,13 @@ def cleanFile(file_name, dest_folder, skim=False, columns=[], rownums=[], json=F
 	#any extra tables must be already removed by now
 	rows = removeSumsRow(rows)
 
+
+
+	print 'rownums: ', rownums
 	# make sure we take all columns and rows if not indicated otherwise
+	print 'now checking for selected rows...'
 	if len(rownums) >0:
+		print '--------'
 		print rows
 		rows = getLimitedRows(rows, rownums)
 		print '------------------------'

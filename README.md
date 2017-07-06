@@ -76,20 +76,23 @@ The current implementation compares the length of the top rows to the 'normal' l
 
 ```python cleaner.py -rows 10``` or ```python cleaner.py -rows 1-20```
 * These allow you to limit the number of rows. 
-* If only one number, it's assumed you want first row and on.
+* If only one number, it's assumed you want that row and all following rows.
+* Index starts at 0.
 
-```python cleaner.py -skim -rows 10 -i 1-4```
+```python cleaner.py -skim -rows 10 -cols 1-4```
 * This lets you remove extra headers and save specific rows and columns from the original file
 
 
 ## select specific columns
 
-```python cleaner.py -i 10-29, 45```
+```python cleaner.py -cols 10-29, 45```
 
-* index starts at 0 
+* functions a little differently than when selecting rows.
+	* if only one num --> only that column is selected.
+	* to select a column and all following, such as all after 8, use ``` -cols 8+ ```
+
+* index starts at 0.
 * can select specific columns individually, and in ranges, by index
-* new arguments after -i need to use a '-', to indicate that it's different flag
-
 
 
 
