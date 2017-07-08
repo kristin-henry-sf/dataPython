@@ -16,45 +16,97 @@ Note: this is the first iteration. Though based on real-world examples, it still
 
 ```python cleaner.py```
 
-## Command line arguments
+# Command line arguments
 
-### Remove extra rows from top
+## '-skim'  
+### Removes extra rows at top of file
 
-To remove extra rows above header rows, like the mailing address and logo of data source:
+Sometimes, we get csv files with extra rows at the top of the file. These rows may be empty, or extra information like the mailing address and logo of data source.
+
+To remove these, use 
 
 ```python cleaner.py -skim```
 
-* Must use '-skim' argv to indicate that the first row is not a header. 
-	* Eventually, user intervention may not be needed and extra rows may be automatically detected as a pattern in the source file
+### Cases this works for:
+* First rows are completely empty
+* Extra rows, at top of file, are less than 1/2 as many cells wide as the header/data rows
+
+**Examples this works for:**
+
+These two empty rows, at the top of the csv, will be removed if '-skim'
+flag is used.
+
+|  |  |   |  |
+| ----- | ----- | ----- | ----- |
+|  |  |   |  |
+| **hd1.a** | **hd1.b** | **hd1.c** | **hd2.a** |
+| 001   | 001   | 001   | 001   |
+| 002   | 002   | 002   | 002   |
+
+
+In this example, the skim feature is able to detect that the first row should be removed, because the first row has only one value and the header has four values.
+
+| contact @email.com   |  |   |  |
+| ----- | ----- | ----- | ----- |
+| **hd1.a** | **hd1.b** | **hd1.c** | **hd2.a** |
+| 001   | 001   | 001   | 001   |
+| 002   | 002   | 002   | 002   |
+
+
+
+
+**Example that will fail:**
+
+The current implementation compares the length of the top rows to the 'normal' length of data rows, and this example has too few columns to use this feature.
+
+| contact @email.com   |  | 
+| ----- | ----- | 
+| **hd1** | **hd2** | 
+| 001   | 001   | 
+| 002   | 002   | 
+
+
+
+### Notes: 
+* If you know which row is the header, you may want to use the row selector flag instead
 * need more example files to test with, especially with extra top rows + nested headers with sparse content in first header row
 
 
-### select specific columns
-
-```python cleaner.py -i 10-29, 45```
-
-* index starts at 0 
-* can select specific columns individually, and in ranges, by index
-* new arguments after -i need to use a '-', to indicate that it's different flag
-
-### select specific rows
+## select specific rows
 
 ```python cleaner.py -rows 10``` or ```python cleaner.py -rows 1-20```
-* These allow you to limit the number of rows. 
-* If only one number, it's assumed you want first row and on.
 
-```python cleaner.py -skim -rows 10 -i 1-4```
+* These allow you to limit the number of rows. 
+* If only one number, it's assumed you want that row and all following rows.
+* Index starts at 0.
+
+
+```python cleaner.py -skim -rows 10 -cols 1-4```
+
 * This lets you remove extra headers and save specific rows and columns from the original file
 
 
-### export in json format
+## select specific columns
+
+```python cleaner.py -cols 2, 5-9, 12```
+
+* functions a little differently than when selecting rows.
+	* if only one num --> only that column is selected.
+	* to select a column and all those following, such as all after 8, use ``` -cols 8+ ```
+
+* index starts at 0.
+* can select specific columns individually, and in ranges, by index
+
+
+
+## export in json format
 
 ```python cleaner.py -json```
 * saves data in json format
 * still working on this...
 
 
-### export in nested json format
+## export in nested json format
 
 ```python cleaner.py -json2```
 * two levels
@@ -62,10 +114,9 @@ To remove extra rows above header rows, like the mailing address and logo of dat
 * ToDo: extract subheader from data when there is an empty subheader
 * still working on this
 
-| hd1   | _____ | _____ | hd2   |
+| hd1   |  |  | hd2   |
 | ----- | ----- | ----- | ----- |
 | **hd1.a** | hd1.b | hd1.c | hd2.a |
-| ----- | ----- | ----- | ----- |
 | 001   | 001   | 001   | 001   |
 | 002   | 002   | 002   | 002   |
 
@@ -91,13 +142,13 @@ Some spreadsheets have data that is categorical, but in a wide format in the tab
 
 example data:
 
-| hd1 | hd2 | hd3 | ____ | ____ | hd6 | hd7 |
+| hd1 | hd2 | hd3 |  |  | hd6 | hd7 |
 | --- | --- | --- | ---- | ---- | --- | --- |
 | 001 | 001 | 001 | dt4 | dt5 | 001 | 001 |
-| 002 | 002 | 002 | ____ | ____ | 002 | 002 |
+| 002 | 002 | 002 |  |  | 002 | 002 |
 | 003 | 003 | 003 | dt4 | dt5 | 003 | 003 |
-| 004 | 004 | 004 | ____ | ____ | 004 | 004 |
-| 005 | 005 | 005 | dt4 | ____ | 005 | 005 |
+| 004 | 004 | 004 |  | | 004 | 004 |
+| 005 | 005 | 005 | dt4 |  | 005 | 005 |
 
 
 
@@ -167,3 +218,4 @@ Cleaned/processed files are saved in 'cleaned' folder.
 * pay attention to XML vulnerabilities and Excel files: http://xlrd.readthedocs.io/en/latest/vulnerabilities.html
 
 
+ToDo: add option to save the skimmed rows, and removed summary tables, into an external file labeled as meta-data.

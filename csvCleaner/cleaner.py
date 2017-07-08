@@ -9,12 +9,12 @@ CLEANED_FOLDER = './cleaned/'
 RESULTS_FOLDER = './queryResults/'
 ALLOWED_EXTENSIONS = set(['csv'])
 
-# filename = './tmp/dummyData1.csv'
+filename = './tmp/dummyData1.csv'
 # filename = './tmp/dummyData2.csv'
 # filename = './tmp/dummyData3.csv'
 # filename = './tmp/dummyData2.xlsx'
 # filename = './tmp/STEMtest_1.csv'
-filename = './tmp/STEMtest_sparse_1.csv'
+#filename = './tmp/STEMtest_sparse_1.csv'
 # filename = './tmp/STEMtest_sparse_2.csv'
 # filename = './tmp/STEMtest_sparse_3.csv'
 # filename = './tmp/STEMtest_full.csv'
@@ -34,34 +34,32 @@ csv_path = filename
 # using '-' to find  next flags in command line args
 cols = []
 getCols = False
-for arg in sys.argv:
-	if getCols:
-		if arg[0] != '-':
-			cols.append(arg)
-		else:
-			getCols = False
-			break
-	if arg =='-i':
-		getCols = True
 
 rows = []
 getRows = False
+
+i = 0
 for arg in sys.argv:
-	print arg
-	if getRows:
-		if arg[0] != '-':
-			rows.append(arg)
-		else:
-			getRows = False
-			break
+	
+	if arg == '-cols':
+		cols.append(sys.argv[i+1])
 	if arg == '-rows':
-		getRows = True
+		rows.append(sys.argv[i+1])
+
+	i+=1
 
 
+
+
+
+print '-----------------------'
+print 'skim: ', '-skim' in sys.argv
+print '-----------------------'
 
 cleanFile(csv_path, CLEANED_FOLDER, skim='-skim' in sys.argv, columns = cols, rownums = rows, 
 									json = '-json' in sys.argv, json2 = '-json2' in sys.argv)
  
+
 
 
 # using to test merge
