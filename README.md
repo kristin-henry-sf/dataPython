@@ -2,7 +2,15 @@
 
 The purpose of this project is to create a tool for cleaning up messy spreadsheets into well-formed csv files ready for analysis and saving to a database. Written in Python.
 
-Currently, it's a command line tool.
+Currently, it's a command line tool. It's in pre-release Development...not yet a release.
+
+# How to use
+
+At this point, it's simple set of scripts (not yet a package). 
+
+To use, download the files, and run from their folder via command line. 
+
+``` cleaner.py``` is the 'main' script. 
 
 ## First, Quick and Dirty version
 Python 2.7 (for now)
