@@ -45,6 +45,8 @@ for arg in sys.argv:
 		cols.append(sys.argv[i+1])
 	if arg == '-rows':
 		rows.append(sys.argv[i+1])
+	if arg == '-f':
+		csv_path = sys.argv[i+1]
 
 	i+=1
 
