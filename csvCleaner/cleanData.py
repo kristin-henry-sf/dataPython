@@ -473,9 +473,19 @@ def saveAsJSON_2(rows, dest_folder, file_name_short):
 		json.dump(data, f)
 
 
+def filterOut(rows, col, value):
+	clean_rows = []
+
+	for row in rows:
+		# print row[col]
+		if row[col] != value:
+			clean_rows.append(row)
+
+	return clean_rows
+
 
 # ---------------------------------------------------------------------------------------
-def cleanFile(file_name, dest_folder, skim=False, columns=[], rownums=[], json=False, json2=False):
+def cleanFile(file_name, dest_folder, skim=False, columns=[], rownums=[], filters=[], json=False, json2=False):
 
 	file_path = file_name
 	file_name = os.path.basename(file_name)
@@ -529,6 +539,14 @@ def cleanFile(file_name, dest_folder, skim=False, columns=[], rownums=[], json=F
 		# print rows
 	if len(columns) >0:
 		rows = getColumns(rows, columns)
+
+
+	if len(filters) >0:
+		print 'filters:', filters
+		rows = filterOut(rows, 6, 'yes')
+
+
+
 
 
 	print '------------------------'
