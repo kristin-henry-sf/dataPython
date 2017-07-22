@@ -9,7 +9,8 @@ CLEANED_FOLDER = './cleaned/'
 RESULTS_FOLDER = './queryResults/'
 ALLOWED_EXTENSIONS = set(['csv'])
 
-filename = './tmp/dummyData1.csv'
+filename = './tmp/dummyData_filter.csv'
+#filename = './tmp/dummyData1.csv'
 # filename = './tmp/dummyData2.csv'
 # filename = './tmp/dummyData3.csv'
 # filename = './tmp/dummyData2.xlsx'
@@ -38,6 +39,8 @@ getCols = False
 rows = []
 getRows = False
 
+filters = []
+
 i = 0
 for arg in sys.argv:
 	
@@ -47,6 +50,8 @@ for arg in sys.argv:
 		rows.append(sys.argv[i+1])
 	if arg == '-f':
 		csv_path = sys.argv[i+1]
+	if arg == '-filters':
+		filters = sys.argv[i+1:i+3]
 
 	i+=1
 
@@ -59,6 +64,7 @@ print 'skim: ', '-skim' in sys.argv
 print '-----------------------'
 
 cleanFile(csv_path, CLEANED_FOLDER, skim='-skim' in sys.argv, columns = cols, rownums = rows, 
+									filters = filters, 
 									json = '-json' in sys.argv, json2 = '-json2' in sys.argv)
  
 
