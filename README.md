@@ -1,3 +1,5 @@
+This project location is now closed. For updates, please see it's new location: https://github.com/KristinHenry/dataPython
+
 # dataPython
 
 The purpose of this project is to create a tool for cleaning up messy spreadsheets into well-formed csv files ready for analysis and saving to a database. Written in Python.
